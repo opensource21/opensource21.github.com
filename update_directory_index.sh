@@ -1,5 +1,5 @@
 #!/bin/bash
-BASE_URL=http://opensource21.github.com
+BASE_URL=http://opensource21.github.io
 for DIR in $(find ./releases -type d); do
   (
     echo -e "<html>\n<body>\n<h1>Directory listing</h1>\n<hr/>\n<pre>"
