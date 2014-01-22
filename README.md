@@ -10,7 +10,7 @@ To add this repository to your maven environment add
     <repositories>
         <repository>
             <id>opensource21</id>
-            <url> http://opensource21.github.com/releases</url>
+            <url>http://opensource21.github.io/releases</url>
         </repository>
     </repositories>
 
