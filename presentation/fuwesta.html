@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>FuWeSta</title>
+
+    <meta name="description" content="Full Web Stack based on Spring!">
+    <meta name="author" content="Niels Stargardt">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+
+<body>
+    <!-- Wrap the entire slide show in a div using the "reveal" class. -->
+    <div class="reveal">
+        <!-- Wrap all slides in a single "slides" class -->
+        <div class="slides">
+
+            <!-- ALL SLIDES GO HERE -->
+            <!-- Each section element contains an individual slide -->
+            <section>
+                <h1>FuWeSta</h1>
+                <p>A fulll web stack based on Spring</p>
+            </section>
+
+            <section>
+                <h1>Motivation</h1>
+                <p>In 2012 I had studied the Play-Framework and wondering if it's possible to get a similar productivity with Spring MVC. So I took a deeper look into the possibilities and ended with FuWeSta. </p>
+            </section>
+            <section>
+                <h1>Goals</h1> There are following goals:
+                <ul>
+                    <li>Make the database access as easy as possible.</li>
+                    <li>Use a template engine which has a good productivity.</li>
+                    <li>Make as much functionality as possible compiler-safe.</li>
+                    <li>Good testability.</li>
+                    <li>Should work smartly together with prototyping.</li>
+                </ul>
+            </section>
+            <section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ##Architecture
+
+The general structure is front end -> services -> persistence. This means:
+
+ * Only the persistence layer should deal with the database. However if you
+  change property-names this will affect the front end too, especially the
+  view, because reflection is heavily used there.
+ * The business logic should always be build in the services. The services
+ assume that they always get valid objects, there is no further validation.
+ * The front-end only binds the data, validates the incoming data, decides upon the
+ flow and renders the view.
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+                    ### Spring-Data
+This solution uses Spring-Data, because it makes the binding of entities very
+easy, by automatically registering a converter for String-Id to Entity.
+Furthermore, in most cases you only need to just declare a function, Spring-Data
+does the rest for you. However in case of trouble you can easily fall back to your own
+implementation.
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">            
+### Open-Session in View
+This is a really common pattern, but it's not generally recommended. The idea is
+that you open the Hibernate session with the incoming request and close it when
+the response is sent. The problems are described in
+[Should I use open session in view](http://heapdump.wordpress.com/2010/04/04/should-i-use-open-session-in-view/)
+ or [Antipattern open session in view](http://java.dzone.com/articles/opensessioninview-antipattern).
+It is used here, because it makes the usage easier for a beginner:
+ * No problems with detached objects when rendering a view.
+ * Spring-Data doesn't work well if you try to create new objects which
+ refer other data when the referred objects are detached. To store the
+ new object, EntityManager.persist() is called, which ends in an exception.
+
+However in a controller there is no transaction, so it's **strongly recommended**
+not to change the entities in the controller, especially not in views. All
+changes should be made in the services.
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### OVal
+The example uses [OVal](http://oval.sourceforge.net/) for data validation insteda of JSR. See the advantages and disadvantages.
+                    
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">            
+### OVal advantages:
+
+ * It's easy to write checks. Especially for prototyping you can use an
+  [expression-language](http://oval.sourceforge.net/userguide.html#declaring-conditional-constraints).
+ * You have access to the complete bean at validation time, not only to the value of the field being validated.
+ This more convenient in many cases. For example, it makes the UniqueCheck possible.
+ * You can add additional information to the message. For example
+  "Your text has 205 characters, but only 100 are allowed. You must delete
+  105 characters."
+ * OVal interprets the information which is given with the
+  [JPA-Annotation](http://oval.sourceforge.net/userguide.html#interpreting-ejb3-jpa-annotations)
+  and adds checks automatically.
+                    
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">            
+  ### OVal disadvantages:
+
+ * It's not JSR-303 standard, so you can't use the Hibernate validator or
+  any other framework which uses JSR-303.
+ * There are two different styles of message formatting. Spring: "The value is {0}." and OVal:
+  "The value is {value}.". (BTW SLF4J needs "The value is {}.").
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">            
+### Thymeleaf
+There are tons of template enigines. Thymeleaf works fine and you only need a good HTML-editor.
+I put a lot of information about template-engines together in [TemplateEngines.md](https://github.com/opensource21/fuwesta/blob/master/fuwesta-sample/TemplateEngines.md).
+                    </script>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Initiales Setup</h2>
+                    <p>Use the normal Standard Java-Edition</p>
+                    <p>You can find further information in the Readme.md in the sample-project.</p>
+                </section>                
+            </section>
+            <section>
+                <section>
+                    <h2>Advantages</h2>
+                    You can get the following advantages.
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### A JAR-Set
+
+You get a set of jars which works together and well definied configuration (with Spring 4 not so important).
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Validation
+A clean integration of [OVal Object Validation](http://oval.sourceforge.net/)
+
+A lot of validations (unique and optimistic-locking) see `de.ppi.fuwesta.oval.validation`.
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Message-Sources
+
+MessageSource-Handling, specially to add information into the messages and recursive usage, see
+
+    de.ppi.fuwesta.spring.mvc.util.UrlDefinitionsToMessages
+    de.ppi.fuwesta.spring.mvc.util.EntityPropertiesToMessages
+    de.ppi.fuwesta.spring.mvc.util.RecursivePropertiesPersister
+                    
+                    
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Some small helper-classes                    
+- `FileContentView`
+- `ResourceNotFoundException`
+- Paginating-Support see `de.ppi.fuwesta.spring.mvc.util.PageWrapper<T>`
+- Enum-Converter `de.ppi.fuwesta.spring.mvc.formatter.EnumConverter`
+                    
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Good Exception-Handling 
+See `de.ppi.fuwesta.spring.mvc.
+exception.BasicGlobalExceptionHandler`
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Partial-Update
+
+You don't t need to put all fields of  an entity into hidden-field of a view. See `de.ppi.fuwesta.spring.mvc.bind.
+ServletBindingService`
+                    </script>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+### Thymeleaf-Dialects
+
+- Thymeleaf Dialect for Bootstrap2
+- Thymeleaf Dialect for create mailto-urls.
+
+
+                    </script>
+                </section>
+            </section>
+            <section>
+                <h2>Interested?</h2>
+                Download at <a href="https://github.com/opensource21/fuwesta">github</a>.
+            </section>
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+            // Optional reveal.js plugins
+            dependencies: [
+                {
+                    src: 'lib/js/classList.js',
+                    condition: function () {
+                        return !document.body.classList;
+                    }
+                },
+                {
+                    src: 'plugin/markdown/marked.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                },
+                {
+                    src: 'plugin/markdown/markdown.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                },
+                {
+                    src: 'plugin/highlight/highlight.js',
+                    async: true,
+                    condition: function () {
+                        return !!document.querySelector('pre code');
+                    },
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                },
+                {
+                    src: 'plugin/zoom-js/zoom.js',
+                    async: true
+                },
+                {
+                    src: 'plugin/notes/notes.js',
+                    async: true
+                }
+    ]
+        });
+    </script>
+</body>
+
+</html>
