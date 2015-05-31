@@ -3,12 +3,13 @@
   <groupId>org.dbunit.datasetbuilder</groupId>
   <artifactId>dbunit-datasetbuilder</artifactId>
   <versioning>
-    <release>1.2</release>
+    <release>1.3</release>
     <versions>
       <version>1.0</version>
       <version>1.1</version>
       <version>1.2</version>
+      <version>1.3</version>
     </versions>
-    <lastUpdated>20140413185722</lastUpdated>
+    <lastUpdated>20150531144308</lastUpdated>
   </versioning>
 </metadata>
