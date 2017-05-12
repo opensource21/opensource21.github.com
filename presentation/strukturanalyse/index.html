@@ -1,0 +1,657 @@
+<!doctype html>
+<!--
+Browser starten
+Eclipse starten
+yEd starten
+neo4j Play-Guide schon mal aufrufen.
+Zeit
+0   Motivation
+2   Lösung
+6   SZE
+10  Degraph
+15  Degraph-Demo
+20  jQAssistant
+26  jQAssistant - Demo
+35  Fazit
+37  Schluss
+-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="Präsentation von Degrapg und jQAssistant">
+		<meta name="author" content="Niels opensource21@gmail.com">
+        <meta name="copyright" content="Diese Folien sind urheberrechtlich geschützt. Jegliche Verwendung bedarf der Genehmigung.">
+
+		<title>Statische Code-Analyse</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/github.css">
+        
+        <link rel="stylesheet" href="css/my.css">
+
+		<!-- Toc-Progress -->
+		<link rel="stylesheet" href="plugin/toc-progress/toc-progress.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+      <div class="reveal">
+        <div class="slides">
+          <section id="title">
+            <h2>Wie sieht's aus?<br> Das hängt davon ab!</h2>
+            <p>Statische Code-Analyse</p>
+            <p>&nbsp;</p>
+            <small>Niels Stargardt<br>24. April 2017</small>
+          </section>
+          <section id="agenda">
+            <h1>Agenda</h1>
+            <p>Motivation</p>
+            <p>Lösungsansätze</p>
+            <p>Degraph</p>
+            <p>jQAssistant</p>
+            <p>Fazit</p>
+          </section>
+          <section id="motivation">
+            <section id="motivation.start">
+              <h1>Motivation</h1>
+              <p>Ziele bei der Entwicklung</p>
+              <ul>
+                <li>Erweiterungen sollen leicht möglich sein.</li>
+                <li class="fragment">Neue Kollegen sollen sich schnell einarbeiten können.</li>
+              </ul>
+            </section>
+            <section id="motivation.probleme">
+              <h2>Die Praxis</h2>
+              <ul>
+                <li><em>Big ball of mud</em> - irgendwie hängt alles zusammen</li>
+                <li class="fragment">Es fehlen klare Strukturen um Dinge zu finden</li>
+                <li class="fragment">Die Fokussierung auf das technische oder fachliche Problem lässt einem die Strukur vergessen</li>
+                <li class="fragment">Bei größeren Systemen oder Änderungen rutschen Systemverletzung auch mal beim Review durch</li>
+              </ul>
+              <p class="fragment">Findet Ihr euch wieder?</p>
+            </section>
+          </section>
+          <section id="loesung">
+            <section id="loesung.start">
+              <h1>Lösungen</h1>
+              <ul>
+                <li>Regelmäßige Architektur-Reviews</li>
+                <li class="fragment"> Abhängigkeiten durch Maven oder Eclipse-Projekte definieren</li>
+                <li class="fragment">Sotograph</li>
+                <li class="fragment">structure101</li>
+                <li class="fragment">Degraph</li>
+                <li class="fragment">jQAssistant</li>
+              </ul>
+            </section>
+            <section id="loesung.review">
+              <h2>Architektur-Reviews</h2>
+              <table>
+                <thead>
+                  <th>Vorteile</th>
+                  <th>Nachteile</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul>
+                        <li>Fördern das Verständnis</li>
+                        <li class="fragment">Schwerer auszutricksen</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li class="fragment">Aufwändig</li>
+                        <li class="fragment">Fehleranfällig</li>
+                        <li class="fragment">Rückmeldung eher spät</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="loesung.maven">
+              <h2>Maven-Module</h2>
+              <table>
+                <thead>
+                  <th>Vorteile</th>
+                  <th>Nachteile</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul>
+                        <li>Verbotene Klassen werden nicht vorgeschlagen</li>
+                        <li class="fragment">Kein weiteres Tool</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li class="fragment">Viele Module reduzieren die Übersichtlichkeit</li>
+                        <li class="fragment">Konzeptioneller Mißbrauch</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="loesung.sotograph">
+              <h2>Sotograph</h2>
+              <p>Mächtiges kommerzielles Tool, welches meine Software durchleuchtet.</p>
+              <table>
+                <thead>
+                  <th>Vorteile</th>
+                  <th>Nachteile</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul>
+                        <li class="fragment">Sehr mächtig</li>
+                        <li class="fragment">erlaubt virtuelles Refactoring</li>
+                        <li class="fragment">zeitlich Entwicklung</li>
+                        <li class="fragment">erfasst viele Metriken</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li class="fragment">komplex</li>
+                        <li class="fragment">teuer</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="loesung.structure101">
+              <h2>Structure 101</h2>
+              <p>Kommerzielles Tool, um die Struktur zu visualisieren.</p>
+              <table>
+                <thead>
+                  <th>Vorteile</th>
+                  <th>Nachteile</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul>
+                        <li class="fragment">Schneller Einstieg auch bei komplexen Code</li>
+                        <li class="fragment">Ermöglicht die Analyse von Code mit schlechter Architektur</li>
+                        <li class="fragment">erlaubt virtuelles Refactoring</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <li class="fragment">Kostenpflichtig</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="loesung.degraph">
+              <h2>Degraph</h2>
+              <p>Opensource-Tool zur Visualisierung und Kontrolle von Abhängigkeiten.</p>
+              <p>&hellip; zu den Vor- und Nachteilen kommen wir gleich.</p>
+            </section>
+            <section id="loesung.jqassistant">
+              <h2>jQAssistant</h2>
+              <p>Opensource-Tool zur Analyse von Strukturen.</p>
+              <p>&hellip; zu den Vor- und Nachteilen kommen wir am Ende.</p>
+            </section>
+          </section>
+          <section id="sze">
+            <section id="sze.ueberblick">
+              <h1>Das Testobjekt</h1>
+              <p>Testobjekt für die Tools war <em>sze</em> als</p>
+              <ul class="dots">
+                <li>überschaubares Projekt</li>
+                <li class="fragment">gut strukturiert</li>
+                <li class="fragment">vermutlich nicht fehlerfrei</li>
+              </ul>
+            </section>
+            <section id="sze.struktur.technisch">
+              <h2>Struktur - technisch</h2>
+              <img src="images/szeGrobStruktur.png"/>
+              <p>Daneben noch</p>
+              <ul>
+                <li class="fragment">config</li>
+                <li class="fragment">model</li>
+                <li class="fragment">contraints</li>
+                <li class="fragment">util</li>
+              </ul>
+            </section>
+            <section id="sze.struktur.fachlich">
+              <h2>Struktur - fachlich</h2>
+              <p>Fachlich gibt es im Programm folgende Bereiche</p>
+              <ul>
+                <li class="!fragment">admin - Alles für den Super-Admin</li>
+                <li class="fragment">converter - Fachliche Darstellung von Werten</li>
+                <li class="fragment">document - Dokumenten Bearbeitung</li>
+                <li class="fragment">zeugnis - die eigentliche Zeugnisbearbeitung</li>
+                <li class="fragment">zeugnisconfig - die Zeugniskonfiguration (Fächer, Formulare &hellip;)</li>
+                <li class="fragment">stammdaten - Verwaltung von Klassen und Schülern </li>
+                <li class="fragment">calendar - Berechnung von Kalender-Daten</li>
+              </ul>
+            </section>
+          </section>
+          <section id="degraph">
+            <section id="degraph.ueberblick">
+              <h1>Degraph</h1>
+              <p>Degraph ist eine in Scala geschriebene Bibliothek</p>
+              <p class="fragment">Ermöglicht es eine graphml-Datei erstellen</p>
+              <p class="fragment">Erkennt Zyklen auch zwischen größeren Einheiten</p>
+              <p class="fragment">Kann Abhängigkeiten überprüfen</p>
+            </section>
+            <section id="degraph.yed">
+              <h2>yEd</h2>
+              <p>yEd ist ein Editor der Graphen möglichst geschickt zeichnet</p>
+              <p class="fragment">Wird zur Anzeige der graphml-Dateien benötigt</p>
+              <p class="fragment">Muss zu beginn einmal sauber konfiguriert werden</p>
+            </section>
+            <section id="degraph.yedconfig">
+              <h2>yEd - Konfiguration</h2>
+              <div style="text-align:left">
+                <p>Wähle im Menü: <em>Layout -> Hierarchical &hellip;</em>. Es öffnet sich ein Dialog in dem folgende Einstellungen vorzunehmen sind:</p>
+                <ul>
+                  <li><em>Allgemein</em>: <em>Orientierung</em> "Links nach rechts"</li>
+                  <li><em>Kanteneinstellungen: Kantenführung</em> "Linienzug"</li>
+                </ul>
+                <p><em>Andocken</em> anklicken. Anschließend den grünen dreieckigen Button drücken.</p>
+              </div>
+            </section>
+            <section id="degraph.maven">
+              <h2>Maven-Config</h2>
+              <p>Degraph benötigt nur eine  Maven-Dependency</p>
+              <pre><code data-noescape class="html">
+&lt;dependency&gt;
+  &lt;groupId&gt;de.schauderhaft.degraph&lt;/groupId&gt;
+  &lt;artifactId&gt;degraph-check&lt;/artifactId&gt;
+  &lt;version&gt;0.1.4&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+              </code></pre>
+            </section>
+            <section id="degraph.config">
+              <h2>Grundsätzliche Aufbau</h2>
+              <p>Degraph nutzt JUnit-Test mit folgendem Aufbau</p>
+              <ul>
+                <li class="!fragment">Definition des Classpath</li>
+                <li class="fragment">includes und excludes</li>
+                <li class="fragment">Definition von Slices</li>
+                <li class="fragment">Regeln für die Abhängigkeit</li>
+              </ul>
+              <p class="fragment">Es prüft immer auf Zyklen!</p>
+              <p></p>
+            </section>
+            <section id="degraph.cyclefree">
+              <h2>Beispiel für Zyklenfreiheit</h2>
+<pre><code class="java">
+@Test
+public void cycleFree() {
+  assertThat(
+      classpath().noJars().          // Keine Klassen aus Jars
+      filterClasspath(TEST_CLASSES). // Filter für Tests
+      printOnFailure(errorFilename). // Beim Fehler eine Grafik
+      including(SZE_BASE_PACKAGE + "**"),
+      is(violationFree()));          // Zyklenfreiheit
+}
+</code></pre>
+            </section>
+            <section id="degraph.slices.technical">
+              <h2>Technische Schichten</h2>
+<pre><code class="java">
+public void layer() {
+  ConstraintBuilder testObject =
+    customClasspath("./target/classes"). // Nur Produktivklassen
+    printOnFailure(errorFilename).
+    including(SZE_BASE_PACKAGE + "**").
+    // Definition der Slices basierend auf ersten Package
+    withSlicing("sze", SZE_BASE_PACKAGE + "(*).**").
+    // Erlaube Abhängigkeiten
+    allow(CONFIG_PACKAGE, SECURITY_PACKAGE,
+       JLayer.oneOf(FRONTEND_LAYER, JOBS_PACKAGE),
+       SERVICE_LAYER, DAO_LAYER, MODEL_PACKAGE,
+       CONSTRAINTS_LAYER, UTIL_PACKAGE);
+  assertThat(testObject, is(violationFree()));
+}
+</code></pre>
+            </section>
+            <section id="degraph.slices.technical2">
+              <h2>Direkter Zugriff</h2>
+<pre><code class="java">
+@Test
+public void layerDirect() {
+  ConstraintBuilder testObject =
+      customClasspath(PRODUCTION_CLASSES).
+      printOnFailure(errorFilename).
+      including(SZE_BASE_PACKAGE + FRONTEND_LAYER + ".**").
+      including(SZE_BASE_PACKAGE + SERVICE_LAYER + ".**").
+      including(SZE_BASE_PACKAGE + JOBS_PACKAGE + ".**").
+      including(SZE_BASE_PACKAGE + DAO_LAYER + ".**").
+      withSlicing("sze", SZE_BASE_PACKAGE + "(*).**").
+      allowDirect(JLayer.oneOf(FRONTEND_LAYER, JOBS_PACKAGE),
+          SERVICE_LAYER, DAO_LAYER);
+  assertThat(testObject, is(violationFree()));
+}
+</code></pre>
+            </section>
+            <section id="degraph.demo">
+              <h2>Demonstration</h2>
+              <p>Wir schauen uns einmal folgende Dinge an:</p>
+              <ol>
+                <li>Fehler bei Zyklen</li>
+                <li>Fehler bei technischer Schichtung</li>
+                <li class="fragment">Fehler bei fachlichen Scheiben</li>
+              </ol>
+              <small>Siehe sze-Projekt die Tags <a target="_blank" href="https://github.com/opensource21/sze/releases/tag/a_jws_degraph1">a_jws_degraph1</a> und <a target="_blank" href="https://github.com/opensource21/sze/releases/tag/a_jws_degraph2">a_jws_degraph2</a></small>
+            </section>
+            <section id="degraph.bewertung">
+              <h2>Bewertung</h2>
+              <table>
+                <thead>
+                  <th>Vorteile</th>
+                  <th>Nachteile</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul>
+                        <li class="fragment">Leicht einzubauen</li>
+                        <li class="fragment">Verhindert einfach Zyklen</li>
+                        <li class="fragment">sehr schnell</li>
+                        <li class="fragment">Kostenlos, daher auch beim Kunden eher möglich</li>
+                      </ul></td>
+                    <td>
+                      <ul>
+                        <li class="fragment">buggy + scala</li>
+                        <li class="fragment">oft falsche Tests</li>
+                        <li class="fragment">rudimentäre Dokumentation</li>
+                        <li class="fragment">für komplexe Prüfungen nicht geeignet</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="fragment">Fazit: Als Minimal-Lösung für alle Projekte sinnvoll.</p>
+            </section>
+          </section>
+          <section id="jqassistant">
+            <section id="jqassistant.ueberblick">
+              <h1>jQAssistant</h1>
+              <p>In Java geschriebenes Tool, welches primär als Maven-Plugin genutzt wird.</p>
+              <ul class="dots">Der Ablauf ist dabei wie folgt:
+                <li>importiere alle möglichen Struktur-Daten in Neo4j &rarr; <em>scanner</em></li>
+                <li class="fragment">reicher die Daten an &rarr; <em>concepts</em></li>
+                <li class="fragment">prüfe Regeln &rarr; <em>constraints</em></li>
+              </ul>
+            </section>
+            <section id="jqassistant.setup">
+              <h2>Maven - Setup</h2>
+<pre><code>
+&lt;jqassistant.version&gt;1.2.0&lt;/jqassistant.version&gt;
+&hellip;
+&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;com.buschmais.jqassistant&lt;/groupId&gt;
+      &lt;artifactId&gt;jqassistant-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;${jqassistant.version}&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;scan&lt;/goal&gt;
+            &lt;goal&gt;analyze&lt;/goal&gt;
+          &lt;/goals&gt;
+          &lt;configuration&gt;
+            &lt;failOnViolations&gt;true&lt;/failOnViolations&gt;
+          &lt;/configuration&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+      &lt;configuration&gt;
+        &lt;reportProperties&gt;
+          &lt;graphml.report.directory&gt;
+            ${project.build.directory}/graphml
+          &lt;/graphml.report.directory&gt;
+        &lt;/reportProperties&gt;
+      &lt;/configuration&gt;
+      &lt;dependencies&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.buschmais.jqassistant.plugin&lt;/groupId&gt;
+            &lt;artifactId&gt;jpa2&lt;/artifactId&gt;
+            &lt;version&gt;1.2&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.buschmais.jqassistant.plugin&lt;/groupId&gt;
+          &lt;artifactId&gt;graphml&lt;/artifactId&gt;
+          &lt;version&gt;1.2&lt;/version&gt;
+        &lt;/dependency&gt;
+      &lt;/dependencies&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;
+
+</code></pre>
+              <p>Bei Multi-Projekten <a href="http://stackoverflow.com/questions/42647718/how-to-use-jqassistent-in-a-multi-module-project-with-a-parent-which-is-stored-p/42864036#42864036" target="_blank">siehe StackOverflow</a></p>
+            </section>
+            <section id="jqassistant.config">
+              <h2>Konfigurationsmöglichkeiten</h2>
+              <p>Konfigurationsdateien liegen im Order <code>jqassistant</code> und können folgende Formate haben:</p>
+              <p><em class="!fragment">xml</em> oder <b class="fragment">ascii-doc</b></p>
+              <p class="fragment">Zur Dokumentation kommen folgenden Regeln:</p>
+              <ul>
+                <li class="fragment">group - referenziert andere Regeln</li>
+                <li class="fragment">concept - aggregiert Daten in der DB</li>
+                <li class="fragment">constraints - definiert einzuhaltende Regeln</li>
+              </ul>
+              <p class="fragment">Die Regeln werden i.A. in <em>Cypher</em> geschrieben.</p>
+            </section>
+            <section id="jqassistant.neo4j">
+              <h2>neo4j</h2>
+              <p>neo4j ist eine Graph-Datenbank, d.h. es gibt Knoten und Kanten, die diese verbinden. Zum Beispiel:</p>
+              <ul>
+                <li><code>(:Type) -[:DECLARES]-> (:Field)</code></li>
+                <li><code>(:Method) -[:READS]-> (:Field)</code></li>
+              </ul>
+              <p class="fragment"><em>Cypher</em> ist die Abfragesprache, analog SQL.</p>
+            </section>
+            <section id="jqassistant.cypher">
+              <h2>Cypher</h2>
+              <p>Cypher-Abfragen entsprechen ASCII-Art, mit den Schlüsselwörtern</p>
+              <code>[MATCH &hellip; WHERE] RETURN [LIMIT]</code>.
+              <p>Beispiel:</p>
+<pre><code class="asciidoc">
+MATCH (m:Method) -[:READS]-> (f:Field)
+RETURN m,f
+LIMIT 15
+</code></pre>
+            </section>
+            <!-- Aufbau der Regeln -->
+            <section id="jqassistant.rule-structure">
+              <h2>Aufbau der Regeln</h2>
+<pre><code data-noescape class="asciidoc">
+[[my-rules:MyConstraint]]&#x2776;
+.A human readable description of the constraint.&#x2777;
+[source,cypher,role=constraint,&#x2778;&#8617;
+requiresConcepts="my-rules:MyConcept",severity=blocker]&#x2779;
+----
+&lt;<em>Cypher-Query</em>&gt;&#x277A;
+----
+</code></pre>
+              <small>
+                <p class="fragment">&#x2776; - Die ID der Regel, des Blocks.</p>
+                <p class="fragment">&#x2777; - Title, des Blocks <b>.</b>Direkt gefolgt von einer Beschreibung.</p>
+                <p class="fragment">&#x2778; - Definiert einen Source-Block in der Sprach <em>cypher</em>, die <em>role=</em> weist es als <em>constraint</em> aus.</p>
+                <p class="fragment">&#x2779; - Benötigt ein <em>concept</em> und hat eine <em>Severity</em>.</p>
+                <p class="fragment">&#x277A; - Im Code-Block wird die Abfrage definiert.</p>
+              </small>
+            </section>
+            <!-- Beispiele-->
+            <section id="jqassistant.example.label">
+              <h2><em>concept:</em> Setzen eines Labels</h2>
+<pre><code class="asciidoc">
+[[structure:RootPackage]]
+.Labels the package `net.sf.sze` as `Root`.
+[source,cypher,role=concept]
+----
+MATCH
+  (root:Package)
+WHERE
+  root.fqn = "net.sf.sze"
+SET
+  root:Root
+RETURN
+  root as RootPackage
+----
+</code></pre>
+            </section>
+            <section id="jqassistant.example.constraint">
+              <h2><em>constraint:</em> Struktur</h2>
+<pre><code class="asciidoc">
+[[structure:RootPackage]]
+.All Types must be located within the root package&#8617;
+or a sub-package.
+[source,cypher,role=constraint,requiresConcepts=&#8617;
+  "structure:RootPackage,maven:InternalFile"]
+----
+MATCH
+  (type:Type:Internal)
+WHERE NOT
+  (:Package:Root)-[:CONTAINS*]->(type)
+RETURN
+  type as TypeOutsideRootPackage
+----
+</code></pre>
+            </section>
+            <section id="jqassistant.ablauf">
+              <h2>Ablauf</h2>
+                <p>1. Analyse starten mit
+                <pre><code data-trim>mvn compile test-compile jqassistant:scan jqassistant:analyze</code></pre></p>
+                <p class="fragment">2. Server starten mit</p>
+                <pre class="fragment"><code data-trim>mvn jqassistant:server</code></pre>
+                <p class="fragment">3. neo4j-Oberfläche starten</p>
+                <pre class="fragment"><code data-trim>http://localhost:7474/browser/</code></pre>
+                <p class="fragment">4. cypher entwickeln und testen</p>
+              </ol>
+            </section>
+            <section id="jqassistant.demo">
+              <h2>Demonstration</h2>
+              <p>Wir schauen uns einmal folgende Dinge an:</p>
+              <ol>
+                <li>Fehler bei Zyklen</li>
+                <li>Fehler bei technischer Schichtung</li>
+                <li class="fragment">Fehler bei fachlichen Scheiben</li>
+              </ol>
+              <small>Siehe sze-Projekt die Tags <a target="_blank" href="https://github.com/opensource21/sze/releases/tag/a_jws_jqa1">a_jws_jqa1</a> und <a target="_blank" href="https://github.com/opensource21/sze/releases/tag/a_jws_jqa2">a_jws_jqa2</a></small>
+            </section>
+            <!-- Was noch so geht, weitere Quellen -->
+            <section id="jqassistant.weitererEinsatz">
+              <h2>Weitere Einsätze</h2>
+              <p>Es gibt noch weitere Einsatzmöglichkeiten</p>
+              <ul class="dots">
+                <li>Prüfung auf Merge-Regeln in der git Historie</li>
+                <li class="fragment">Prüfung auf Immutable Klassendesign</li>
+                <li class="fragment">Packagenamen enthalten Maven-Artefaktnamen</li>
+                <li class="fragment">Test-Jars bekommen den scope test</li>
+                <li class="fragment">Spring-Nutzung ist korrekt</li>
+                <li class="fragment">Testcoverage Regeln für bestimmte Methoden</li>
+                <li class="fragment"><a href="http://guides.neo4j.com/jqa" target="_blank">Dein Bedarf</a></li>
+              </ul>
+            </section>
+            <section id="jqassistant.example.spring">
+              <h2>Referenzen auf Service-Implementationen</h2>
+<pre><code class="asciidoc">
+[[spring:ServiceImpl]]
+.Check that classes in service.impl aren't referred by any class
+[source,cypher,role=constraint,requiresConcepts=""]
+----
+MATCH (use:Type)-[:DEPENDS_ON]->(used:Type)
+    <-[:CONTAINS*]- (serviceImpl:Package{fqn:"&hellip;.service.impl"})
+WHERE use <> used
+AND NOT use.name CONTAINS "$"
+AND NOT used.name CONTAINS "$"
+// Die PDF-Konverter werden nicht von Spring verwaltet.
+AND NOT used.name CONTAINS "OO2PdfConverter"
+RETURN use.fqn AS FORBIDDEN_USER, used.fqn AS FORBIDDEN_USED
+----
+</code></pre>
+            </section>
+            <section id="jqassistant.bewertung.positiv">
+              <h2>Bewertung - positiv</h2>
+              <p>Folgende Punkte finde ich positiv</p>
+              <ul>
+                <li>Läuft gut im Continously-Build</li>
+                <li class="fragment">umfangreiche Dokumentation</li>
+                <li class="fragment">extrem Leistungsstark</li>
+                <li class="fragment">erweiterbar</li>
+                <li class="fragment">man erwirbt Know-How über neo4j</li>
+                <li class="fragment">Kostenlos, daher auch beim Kunden eher möglich</li>
+                <li class="fragment">Sprach unabhängig (siehe git oder maven)</li>
+                <li class="fragment"><a target="_blank" href="http://stackoverflow.com/questions/42509378/how-to-debug-jqassistant-in-eclipse">Debugbar</a></li>
+              </ul>
+            </section>
+            <section id="jqassistant.bewertung.negativ">
+              <h2>Bewertung - negativ</h2>
+              <p>Folgende Punkte sehe ich kritisch</p>
+              <ul>
+                <li>Laufzeit im Minutenbereich</li>
+                <li class="fragment">Einarbeitungsaufwand</li>
+                <li class="fragment">kleine Community</li>
+              </ul>
+            </section>
+          </section>
+          <section id="fazit">
+            <h1>Fazit</h1>
+            <p>Strukturanalyse lohnt sich, da die Software wartbarer bleibt. Zumindest Degraph sollte daher eingesetzt werden.</p>
+            <p class="fragment">Mit jQAssistant sind umfangreiche Analysen jenseits der Abhängigkeitsanalyse möglich. Der Einsatz erfordert allerdings eine gewisse Einarbeitung.</p>
+          </section>
+        </div>
+      </div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+            	transition: 'slide',
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+                // slideNumber: 'c/t',
+                
+                // width: 960,
+                // height: 700,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					// { src: 'plugin/markdown/marked.js' },
+					// { src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },                    
+                    //An und Ausschalten mit q
+					{
+					 	src: 'plugin/toc-progress/toc-progress.js',async: true,
+					    callback: function() {
+					    	toc_progress.initialize('scroll', 'rgba(0, 40, 100, 0.4)');
+					    	//toc_progress.create();
+					    }
+               		}
+				]
+			});
+		</script>
+	</body>
+</html>

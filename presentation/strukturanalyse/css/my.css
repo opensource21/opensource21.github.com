@@ -1,0 +1,21 @@
+.reveal .slide-background.present {
+  opacity: 0.7;
+  visibility: visible; 
+}
+
+.reveal table td {
+  vertical-align: top;
+}
+
+/* &hellip; horizontale Punkte als bulletpoints */
+.reveal ul.dots { list-style-type: none;}
+.reveal ul.dots > li:before { content: "\2026  ";}
+
+.reveal #logo {
+    background-image: url(../images/ppi_logo.png);
+    background-size:  auto 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    width: auto;
+    #height: 200px;
+}
