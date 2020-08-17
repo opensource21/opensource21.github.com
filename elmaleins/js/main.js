@@ -5223,7 +5223,7 @@ var $elm$core$Task$perform = F2(
 var $elm$browser$Browser$element = _Browser_element;
 var $author$project$Main$Config = F5(
 	function (poolA, poolB, timeoutInSeconds, reverseChallenges, show) {
-		return {L: poolA, M: poolB, aN: reverseChallenges, G: show, O: timeoutInSeconds};
+		return {M: poolA, N: poolB, aN: reverseChallenges, H: show, O: timeoutInSeconds};
 	});
 var $author$project$Main$FactorPool = F3(
 	function (firstElement, furtherElements, changes) {
@@ -5692,7 +5692,7 @@ var $author$project$Main$Solved = function (a) {
 };
 var $author$project$Main$Challenge = F3(
 	function (faktorA, faktorB, result) {
-		return {D: faktorA, E: faktorB, N: result};
+		return {D: faktorA, E: faktorB, G: result};
 	});
 var $author$project$Main$getChallenge = F2(
 	function (a, b) {
@@ -5910,7 +5910,7 @@ var $elm$core$Maybe$withDefault = F2(
 var $author$project$Main$challengeResultCorrect = function (challenge) {
 	return _Utils_eq(
 		A2($elm$core$Maybe$withDefault, 0, challenge.D) * A2($elm$core$Maybe$withDefault, 0, challenge.E),
-		A2($elm$core$Maybe$withDefault, -1, challenge.N));
+		A2($elm$core$Maybe$withDefault, -1, challenge.G));
 };
 var $elm$core$Basics$not = _Basics_not;
 var $author$project$Main$challengeResultWrong = function (challenge) {
@@ -5961,7 +5961,7 @@ var $author$project$Main$update = F2(
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
-					{G: true});
+					{H: true});
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -5971,7 +5971,7 @@ var $author$project$Main$update = F2(
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
-					{G: false});
+					{H: false});
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -5985,7 +5985,7 @@ var $author$project$Main$update = F2(
 					A2(
 						$elm$random$Random$generate,
 						$author$project$Main$NewChallenge,
-						A2($author$project$Main$challengeGen, model.d.L, model.d.M)));
+						A2($author$project$Main$challengeGen, model.d.M, model.d.N)));
 			case 6:
 				var challenge = msg.a;
 				var result = msg.b;
@@ -5993,7 +5993,7 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						challenge,
 						{
-							N: $elm$core$String$toInt(result)
+							G: $elm$core$String$toInt(result)
 						}));
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -6013,7 +6013,7 @@ var $author$project$Main$update = F2(
 						A2($elm$core$List$cons, challenge, model.r)) < 3) ? A2(
 						$elm$random$Random$generate,
 						$author$project$Main$NewChallenge,
-						A2($author$project$Main$challengeGen, model.d.L, model.d.M)) : $elm$core$Platform$Cmd$none);
+						A2($author$project$Main$challengeGen, model.d.M, model.d.N)) : $elm$core$Platform$Cmd$none);
 			case 1:
 				var newChallenge = msg.a;
 				return _Utils_Tuple2(
@@ -6205,7 +6205,7 @@ var $author$project$Main$showFactorConfig = F2(
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$Main$showConfiguration = function (model) {
-	return model.d.G ? A2(
+	return model.d.H ? A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
@@ -6220,8 +6220,8 @@ var $author$project$Main$showConfiguration = function (model) {
 					[
 						$elm$html$Html$text('Konfiguration')
 					])),
-				A2($author$project$Main$showFactorConfig, model.d.L, 'A'),
-				A2($author$project$Main$showFactorConfig, model.d.M, 'B'),
+				A2($author$project$Main$showFactorConfig, model.d.M, 'A'),
+				A2($author$project$Main$showFactorConfig, model.d.N, 'B'),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -6339,7 +6339,7 @@ var $author$project$Main$showControl = function (model) {
 			]),
 		_List_fromArray(
 			[
-				model.d.G ? A2(
+				model.d.H ? A2(
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
@@ -6471,6 +6471,8 @@ var $author$project$Main$showCurrentChallenge = F2(
 									$elm$html$Html$Attributes$size(3),
 									$elm$html$Html$Attributes$name('result'),
 									A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Ergebnis'),
+									$elm$html$Html$Attributes$value(
+									$author$project$Main$maybeIntToString(challenge.G)),
 									$elm$html$Html$Events$onInput(
 									$author$project$Main$Result(challenge))
 								]),
@@ -6568,7 +6570,7 @@ var $author$project$Main$showSolvedChallenge = function (challenge) {
 		_List_fromArray(
 			[
 				$elm$html$Html$text(
-				'Nicht ganz ' + ($author$project$Main$challengeToString(challenge) + (' und nicht ' + $author$project$Main$maybeIntToString(challenge.N))))
+				'Nicht ganz ' + ($author$project$Main$challengeToString(challenge) + (' und nicht ' + $author$project$Main$maybeIntToString(challenge.G))))
 			]));
 };
 var $author$project$Main$showSolvedChallenges = function (challenges) {
