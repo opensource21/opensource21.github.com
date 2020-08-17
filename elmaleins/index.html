@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"-->
+    <!--          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+    <!-- local is faster at local development -->
+    <link rel="stylesheet" href="css/bootstrap-4.5.2.min.css">
+    <title>Elmaleins</title>
+    <script type="text/javascript" src="./js/main.js"></script>
+</head>
+
+<body>
+<div id="myapp">
+    <div class="container-sm">
+        <p class="alert alert-danger" role="alert">Java-Script scheint ausgeschaltet! Die Anwendung funktioniert
+            <strong>nur</strong> mit Java-Script.</p>
+        <h1>1x1-Trainer</h1>
+        <div id="configuration">
+            <h2>Konfiguration</h2>
+            <div id="factorAConfig">
+                <p><strong>Faktor A: </strong>2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2,
+                    3,
+                    4,
+                    2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, </p>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" class="form-control" size="10" placeholder="3-5, 8" name="rangeA"
+                           aria-label="Faktoren für A"/>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-success" name="addA">Hinzufügen</button>
+                        <button type="button" class="btn btn-warning" name="removeA">Entfernen</button>
+                    </div>
+                </div>
+            </div>
+            <div id="factorBConfig">
+                <p><strong>Faktor B: </strong>2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2,
+                    3,
+                    4,
+                    2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, </p>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" class="form-control" size="10" placeholder="3-5, 8" name="rangeB"
+                           aria-label="Faktor für B"/>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-success" name="addB" aria-label="Hinzufügen">Hinzufügen
+                        </button>
+                        <button type="button" class="btn btn-warning" name="removeB" aria-label="Entfernen">Entfernen
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="number" class="form-control" min="2" max="30" size="2" name="timeout"
+                       aria-label="Definiere den Timeout."/>
+                <div class="input-group-append">
+                    <span class="input-group-text"> s Zeit </span>
+                </div>
+                <div class="input-group-text">
+                    <input type="checkbox" aria-label="Umgekehrt"/>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text"> Umgekehrt</span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div id="control">
+            <button type="button" class="btn btn-primary" name="config">Verdecke/Zeige Config</button>
+            <button type="button" class="btn btn-primary" name="start">Start</button>
+        </div>
+        <div id="challenge">
+            <h2>Aufgabe</h2>
+            <p>Noch 20 Sekunden</p>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">4 x 6 = </span>
+                </div>
+                <input type="number" class="form-control" min="2" max="900" size="3" name="result"
+                       aria-label="Ergebnis"/>
+                <div class=" input-group-append">
+                    <button type="button" class="btn btn-success" name="next">Next</button>
+                </div>
+            </div>
+        </div>
+        <div id="results">
+            <hr>
+            <h2>Ergebnisse</h2>
+            <p>1 von 2 Richtig.</p>
+            <p class="alert alert-success" role="alert">Richtig 3 x 5 = 15</p>
+            <p class="alert alert-info" role="alert">Nicht ganz 3 x 5 = 15 und nicht 16</p>
+        </div>
+    </div>
+</div>
+<script>
+    Elm.Main.init({
+        node: document.getElementById('myapp')
+    });
+</script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
