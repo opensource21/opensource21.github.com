@@ -2704,7 +2704,7 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		p: func(record.p),
+		q: func(record.q),
 		W: record.W,
 		T: record.T
 	}
@@ -2974,7 +2974,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.p;
+		var message = !tag ? value : tag < 3 ? value.a : value.q;
 		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.W;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
@@ -5231,7 +5231,7 @@ var $author$project$Main$FactorPool = F3(
 	});
 var $author$project$Main$Model = F4(
 	function (config, currentChallenge, remainingTime, solvedChallenges) {
-		return {d: config, x: currentChallenge, z: remainingTime, r: solvedChallenges};
+		return {d: config, p: currentChallenge, z: remainingTime, s: solvedChallenges};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -5255,7 +5255,7 @@ var $author$project$Main$init = function (_v0) {
 };
 var $author$project$Main$Tick = F2(
 	function (a, b) {
-		return {$: 2, a: a, b: b};
+		return {$: 3, a: a, b: b};
 	});
 var $elm$time$Time$Every = F2(
 	function (a, b) {
@@ -5673,7 +5673,7 @@ var $elm$time$Time$every = F2(
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subscriptions = function (model) {
-	var _v0 = model.x;
+	var _v0 = model.p;
 	if (_v0.$ === 1) {
 		return $elm$core$Platform$Sub$none;
 	} else {
@@ -5685,10 +5685,10 @@ var $author$project$Main$subscriptions = function (model) {
 	}
 };
 var $author$project$Main$NewChallenge = function (a) {
-	return {$: 1, a: a};
+	return {$: 2, a: a};
 };
 var $author$project$Main$Solved = function (a) {
-	return {$: 3, a: a};
+	return {$: 4, a: a};
 };
 var $author$project$Main$Challenge = F3(
 	function (faktorA, faktorB, result) {
@@ -5945,7 +5945,7 @@ var $author$project$Main$setTimeoutInSeconds = F2(
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 7:
+			case 8:
 				var newTime = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -5957,7 +5957,7 @@ var $author$project$Main$update = F2(
 								$elm$core$String$toInt(newTime))
 						}),
 					$elm$core$Platform$Cmd$none);
-			case 4:
+			case 5:
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
@@ -5967,7 +5967,7 @@ var $author$project$Main$update = F2(
 						model,
 						{d: newConfig}),
 					$elm$core$Platform$Cmd$none);
-			case 5:
+			case 6:
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
@@ -5981,12 +5981,18 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{r: _List_Nil}),
+						{s: _List_Nil}),
 					A2(
 						$elm$random$Random$generate,
 						$author$project$Main$NewChallenge,
 						A2($author$project$Main$challengeGen, model.d.M, model.d.N)));
-			case 6:
+			case 1:
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{p: $elm$core$Maybe$Nothing}),
+					$elm$core$Platform$Cmd$none);
+			case 7:
 				var challenge = msg.a;
 				var result = msg.b;
 				var newChallenge = $elm$core$Maybe$Just(
@@ -5998,29 +6004,29 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{x: newChallenge}),
+						{p: newChallenge}),
 					$elm$core$Platform$Cmd$none);
-			case 3:
+			case 4:
 				var challenge = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							x: $elm$core$Maybe$Nothing,
-							r: A2($elm$core$List$cons, challenge, model.r)
+							p: $elm$core$Maybe$Nothing,
+							s: A2($elm$core$List$cons, challenge, model.s)
 						}),
 					($author$project$Main$numberOfWrongChallenges(
-						A2($elm$core$List$cons, challenge, model.r)) < 3) ? A2(
+						A2($elm$core$List$cons, challenge, model.s)) < 3) ? A2(
 						$elm$random$Random$generate,
 						$author$project$Main$NewChallenge,
 						A2($author$project$Main$challengeGen, model.d.M, model.d.N)) : $elm$core$Platform$Cmd$none);
-			case 1:
+			case 2:
 				var newChallenge = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							x: $elm$core$Maybe$Just(newChallenge),
+							p: $elm$core$Maybe$Just(newChallenge),
 							z: model.d.O
 						}),
 					$elm$core$Platform$Cmd$none);
@@ -6047,7 +6053,7 @@ var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $author$project$Main$ChangeTimeout = function (a) {
-	return {$: 7, a: a};
+	return {$: 8, a: a};
 };
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
@@ -6308,12 +6314,13 @@ var $author$project$Main$showConfiguration = function (model) {
 			])) : $elm$html$Html$text('');
 };
 var $author$project$Main$HideConfig = function (a) {
-	return {$: 5, a: a};
+	return {$: 6, a: a};
 };
 var $author$project$Main$ShowConfig = function (a) {
-	return {$: 4, a: a};
+	return {$: 5, a: a};
 };
 var $author$project$Main$StartChallenges = {$: 0};
+var $author$project$Main$StopChallenges = {$: 1};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };
@@ -6369,25 +6376,45 @@ var $author$project$Main$showControl = function (model) {
 						$elm$html$Html$text('Zeige Config')
 					])),
 				$elm$html$Html$text(' '),
-				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$type_('button'),
-						$elm$html$Html$Attributes$class('btn'),
-						$elm$html$Html$Attributes$class('btn-primary'),
-						$elm$html$Html$Attributes$name('start'),
-						$elm$html$Html$Events$onClick($author$project$Main$StartChallenges)
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Start')
-					]))
+				function () {
+				var _v0 = model.p;
+				if (_v0.$ === 1) {
+					return A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$type_('button'),
+								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Attributes$class('btn-primary'),
+								$elm$html$Html$Attributes$name('start'),
+								$elm$html$Html$Events$onClick($author$project$Main$StartChallenges)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Start')
+							]));
+				} else {
+					return A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$type_('button'),
+								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Attributes$class('btn-primary'),
+								$elm$html$Html$Attributes$name('start'),
+								$elm$html$Html$Events$onClick($author$project$Main$StopChallenges)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Stop')
+							]));
+				}
+			}()
 			]));
 };
 var $author$project$Main$Result = F2(
 	function (a, b) {
-		return {$: 6, a: a, b: b};
+		return {$: 7, a: a, b: b};
 	});
 var $elm$core$Maybe$map = F2(
 	function (f, maybe) {
@@ -6505,7 +6532,7 @@ var $author$project$Main$showCurrentChallenge = F2(
 				]));
 	});
 var $author$project$Main$showMaybeChallenge = function (model) {
-	var _v0 = model.x;
+	var _v0 = model.p;
 	if (_v0.$ === 1) {
 		return $elm$html$Html$text('');
 	} else {
@@ -6593,7 +6620,7 @@ var $author$project$Main$showSuccessRate = function (challenges) {
 			]));
 };
 var $author$project$Main$showResults = function (model) {
-	return $elm$core$List$isEmpty(model.r) ? $elm$html$Html$text('') : A2(
+	return $elm$core$List$isEmpty(model.s) ? $elm$html$Html$text('') : A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
@@ -6610,9 +6637,9 @@ var $author$project$Main$showResults = function (model) {
 						[
 							$elm$html$Html$text('Ergebnisse')
 						])),
-					$author$project$Main$showSuccessRate(model.r)
+					$author$project$Main$showSuccessRate(model.s)
 				]),
-			$author$project$Main$showSolvedChallenges(model.r)));
+			$author$project$Main$showSolvedChallenges(model.s)));
 };
 var $author$project$Main$view = function (model) {
 	return A2(
