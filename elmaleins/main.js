@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.W.K === region.aa.K)
+	if (region.X.K === region.ab.K)
 	{
-		return 'on line ' + region.W.K;
+		return 'on line ' + region.X.K;
 	}
-	return 'on lines ' + region.W.K + ' through ' + region.aa.K;
+	return 'on lines ' + region.X.K + ' through ' + region.ab.K;
 }
 
 
@@ -1857,7 +1857,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
+		impl.aI,
 		impl.aQ,
 		impl.aO,
 		function() { return function() {} }
@@ -2705,8 +2705,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		r: func(record.r),
-		X: record.X,
-		U: record.U
+		Y: record.Y,
+		V: record.V
 	}
 });
 
@@ -2975,10 +2975,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.r;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.X;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.Y;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.U) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.V) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,7 +3928,7 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
+		impl.aI,
 		impl.aQ,
 		impl.aO,
 		function(sendToApp, initialModel) {
@@ -3964,11 +3964,11 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
+		impl.aI,
 		impl.aQ,
 		impl.aO,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.V && impl.V(sendToApp)
+			var divertHrefToApp = impl.W && impl.W(sendToApp)
 			var view = impl.aR;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -3977,7 +3977,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aA);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aB);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aJ;
-	var onUrlRequest = impl.aK;
+	var onUrlChange = impl.aK;
+	var onUrlRequest = impl.aL;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		V: function(sendToApp)
+		W: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.an === next.an
-							&& curr.ae === next.ae
-							&& curr.ak.a === next.ak.a
+							&& curr.ao === next.ao
+							&& curr.af === next.af
+							&& curr.al.a === next.al.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,9 +4069,9 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aH: function(flags)
+		aI: function(flags)
 		{
-			return A3(impl.aH, flags, _Browser_getUrl(), key);
+			return A3(impl.aI, flags, _Browser_getUrl(), key);
 		},
 		aR: impl.aR,
 		aQ: impl.aQ,
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aF: 'hidden', aB: 'visibilitychange' }
+		? { aG: 'hidden', aC: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aF: 'mozHidden', aB: 'mozvisibilitychange' }
+		? { aG: 'mozHidden', aC: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aF: 'msHidden', aB: 'msvisibilitychange' }
+		? { aG: 'msHidden', aC: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aF: 'webkitHidden', aB: 'webkitvisibilitychange' }
-		: { aF: 'hidden', aB: 'visibilitychange' };
+		? { aG: 'webkitHidden', aC: 'webkitvisibilitychange' }
+		: { aG: 'hidden', aC: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		ar: _Browser_getScene(),
-		au: {
-			aw: _Browser_window.pageXOffset,
-			ax: _Browser_window.pageYOffset,
-			av: _Browser_doc.documentElement.clientWidth,
-			ad: _Browser_doc.documentElement.clientHeight
+		as: _Browser_getScene(),
+		av: {
+			ax: _Browser_window.pageXOffset,
+			ay: _Browser_window.pageYOffset,
+			aw: _Browser_doc.documentElement.clientWidth,
+			ae: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		av: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		ad: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		aw: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		ae: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			ar: {
-				av: node.scrollWidth,
-				ad: node.scrollHeight
+			as: {
+				aw: node.scrollWidth,
+				ae: node.scrollHeight
 			},
-			au: {
-				aw: node.scrollLeft,
-				ax: node.scrollTop,
-				av: node.clientWidth,
-				ad: node.clientHeight
+			av: {
+				ax: node.scrollLeft,
+				ay: node.scrollTop,
+				aw: node.clientWidth,
+				ae: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			ar: _Browser_getScene(),
-			au: {
-				aw: x,
-				ax: y,
-				av: _Browser_doc.documentElement.clientWidth,
-				ad: _Browser_doc.documentElement.clientHeight
+			as: _Browser_getScene(),
+			av: {
+				ax: x,
+				ay: y,
+				aw: _Browser_doc.documentElement.clientWidth,
+				ae: _Browser_doc.documentElement.clientHeight
 			},
-			aD: {
-				aw: x + rect.left,
-				ax: y + rect.top,
-				av: rect.width,
-				ad: rect.height
+			aE: {
+				ax: x + rect.left,
+				ay: y + rect.top,
+				aw: rect.width,
+				ae: rect.height
 			}
 		};
 	});
@@ -4942,7 +4942,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {ac: fragment, ae: host, ai: path, ak: port_, an: protocol, ao: query};
+		return {ad: fragment, af: host, aj: path, al: port_, ao: protocol, ap: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5223,11 +5223,11 @@ var $elm$core$Task$perform = F2(
 var $elm$browser$Browser$element = _Browser_element;
 var $author$project$Main$Config = F5(
 	function (poolA, poolB, timeoutInSeconds, reverseChallenges, show) {
-		return {s: poolA, t: poolB, aN: reverseChallenges, M: show, R: timeoutInSeconds};
+		return {s: poolA, t: poolB, R: reverseChallenges, M: show, S: timeoutInSeconds};
 	});
 var $author$project$Main$FactorPool = F3(
 	function (firstElement, furtherElements, changes) {
-		return {x: changes, J: firstElement, k: furtherElements};
+		return {x: changes, J: firstElement, m: furtherElements};
 	});
 var $author$project$Main$Model = F4(
 	function (config, currentChallenge, remainingTime, solvedChallenges) {
@@ -5263,7 +5263,7 @@ var $elm$time$Time$Every = F2(
 	});
 var $elm$time$Time$State = F2(
 	function (taggers, processes) {
-		return {am: processes, at: taggers};
+		return {an: processes, au: taggers};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5555,7 +5555,7 @@ var $elm$time$Time$spawnHelp = F3(
 	});
 var $elm$time$Time$onEffects = F3(
 	function (router, subs, _v0) {
-		var processes = _v0.am;
+		var processes = _v0.an;
 		var rightStep = F3(
 			function (_v6, id, _v7) {
 				var spawns = _v7.a;
@@ -5624,7 +5624,7 @@ var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
 var $elm$time$Time$onSelfMsg = F3(
 	function (router, interval, state) {
-		var _v0 = A2($elm$core$Dict$get, interval, state.at);
+		var _v0 = A2($elm$core$Dict$get, interval, state.au);
 		if (_v0.$ === 1) {
 			return $elm$core$Task$succeed(state);
 		} else {
@@ -5867,9 +5867,9 @@ var $author$project$Main$addChanges = function (pool) {
 		pool,
 		{
 			x: '',
-			k: A2(
+			m: A2(
 				$elm$core$List$append,
-				pool.k,
+				pool.m,
 				$author$project$Main$convertToList(pool.x))
 		});
 };
@@ -6005,7 +6005,7 @@ var $elm$random$Random$uniform = F2(
 			A2($elm$core$List$map, $elm$random$Random$addOne, valueList));
 	});
 var $author$project$Main$randomFactor = function (factorPool) {
-	return A2($elm$random$Random$uniform, factorPool.J, factorPool.k);
+	return A2($elm$random$Random$uniform, factorPool.J, factorPool.m);
 };
 var $author$project$Main$challengeGen = F2(
 	function (factorPoolA, factorPoolB) {
@@ -6127,7 +6127,7 @@ var $author$project$Main$removeFromList = F2(
 	});
 var $author$project$Main$removeElement = F2(
 	function (search, pool) {
-		var _v0 = pool.k;
+		var _v0 = pool.m;
 		if (!_v0.b) {
 			return pool;
 		} else {
@@ -6135,10 +6135,10 @@ var $author$project$Main$removeElement = F2(
 			var others = _v0.b;
 			return _Utils_eq(pool.J, search) ? _Utils_update(
 				pool,
-				{J: first, k: others}) : _Utils_update(
+				{J: first, m: others}) : _Utils_update(
 				pool,
 				{
-					k: A2($author$project$Main$removeFromList, search, pool.k)
+					m: A2($author$project$Main$removeFromList, search, pool.m)
 				});
 		}
 	});
@@ -6175,6 +6175,12 @@ var $author$project$Main$setPoolB = F2(
 			config,
 			{t: pool});
 	});
+var $author$project$Main$setReverse = F2(
+	function (config, newReverse) {
+		return _Utils_update(
+			config,
+			{R: newReverse});
+	});
 var $author$project$Main$setTimeoutInSeconds = F2(
 	function (config, newTime) {
 		if (newTime.$ === 1) {
@@ -6183,7 +6189,7 @@ var $author$project$Main$setTimeoutInSeconds = F2(
 			var time = newTime.a;
 			return _Utils_update(
 				config,
-				{R: time});
+				{S: time});
 		}
 	});
 var $author$project$Main$update = F2(
@@ -6201,7 +6207,16 @@ var $author$project$Main$update = F2(
 								$elm$core$String$toInt(newTime))
 						}),
 					$elm$core$Platform$Cmd$none);
-			case 11:
+			case 9:
+				var newReverse = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							a: A2($author$project$Main$setReverse, model.a, newReverse)
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 12:
 				var input = msg.a;
 				return _Utils_Tuple2(
 					A2(
@@ -6212,7 +6227,7 @@ var $author$project$Main$update = F2(
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 14:
+			case 15:
 				var input = msg.a;
 				return _Utils_Tuple2(
 					A2(
@@ -6223,7 +6238,7 @@ var $author$project$Main$update = F2(
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 9:
+			case 10:
 				return _Utils_Tuple2(
 					A2(
 						$author$project$Main$setConfig,
@@ -6233,7 +6248,7 @@ var $author$project$Main$update = F2(
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 10:
+			case 11:
 				return _Utils_Tuple2(
 					A2(
 						$author$project$Main$setConfig,
@@ -6243,7 +6258,7 @@ var $author$project$Main$update = F2(
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 12:
+			case 13:
 				return _Utils_Tuple2(
 					A2(
 						$author$project$Main$setConfig,
@@ -6253,7 +6268,7 @@ var $author$project$Main$update = F2(
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 13:
+			case 14:
 				return _Utils_Tuple2(
 					A2(
 						$author$project$Main$setConfig,
@@ -6333,7 +6348,7 @@ var $author$project$Main$update = F2(
 						model,
 						{
 							q: $elm$core$Maybe$Just(newChallenge),
-							D: model.a.R
+							D: model.a.S
 						}),
 					$elm$core$Platform$Cmd$none);
 			default:
@@ -6358,19 +6373,22 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
-var $author$project$Main$AddToPoolA = {$: 9};
-var $author$project$Main$AddToPoolB = {$: 12};
+var $author$project$Main$AddToPoolA = {$: 10};
+var $author$project$Main$AddToPoolB = {$: 13};
+var $author$project$Main$ChangeReverse = function (a) {
+	return {$: 9, a: a};
+};
 var $author$project$Main$ChangeTimeout = function (a) {
 	return {$: 8, a: a};
 };
 var $author$project$Main$ChangesPoolA = function (a) {
-	return {$: 11, a: a};
+	return {$: 12, a: a};
 };
 var $author$project$Main$ChangesPoolB = function (a) {
-	return {$: 14, a: a};
+	return {$: 15, a: a};
 };
-var $author$project$Main$RemoveFromPoolA = {$: 10};
-var $author$project$Main$RemoveFromPoolB = {$: 13};
+var $author$project$Main$RemoveFromPoolA = {$: 11};
+var $author$project$Main$RemoveFromPoolB = {$: 14};
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -6387,7 +6405,7 @@ var $elm$html$Html$Attributes$boolProperty = F2(
 			key,
 			$elm$json$Json$Encode$bool(bool));
 	});
-var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
+var $elm$html$Html$Attributes$checked = $elm$html$Html$Attributes$boolProperty('checked');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$hr = _VirtualDom_node('hr');
 var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
@@ -6395,13 +6413,29 @@ var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$html$Html$Attributes$max = $elm$html$Html$Attributes$stringProperty('max');
 var $elm$html$Html$Attributes$min = $elm$html$Html$Attributes$stringProperty('min');
 var $elm$html$Html$Attributes$name = $elm$html$Html$Attributes$stringProperty('name');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 0, a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
 var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
 	return {$: 1, a: a};
 };
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
 		return A2(
@@ -6430,22 +6464,6 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 0, a: a};
-};
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var $elm$html$Html$Events$onClick = function (msg) {
-	return A2(
-		$elm$html$Html$Events$on,
-		'click',
-		$elm$json$Json$Decode$succeed(msg));
-};
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$Attributes$size = function (n) {
@@ -6489,7 +6507,7 @@ var $author$project$Main$showFactorConfig = F5(
 									$elm$core$List$map,
 									$elm$core$String$fromInt,
 									$elm$core$List$sort(
-										A2($elm$core$List$cons, pool.J, pool.k)))))
+										A2($elm$core$List$cons, pool.J, pool.m)))))
 						])),
 					A2(
 					$elm$html$Html$div,
@@ -6597,7 +6615,7 @@ var $author$project$Main$showConfiguration = function (model) {
 								A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Definiere den Timeout.'),
 								$elm$html$Html$Events$onInput($author$project$Main$ChangeTimeout),
 								$elm$html$Html$Attributes$value(
-								$elm$core$String$fromInt(model.a.R))
+								$elm$core$String$fromInt(model.a.S))
 							]),
 						_List_Nil),
 						A2(
@@ -6632,8 +6650,10 @@ var $author$project$Main$showConfiguration = function (model) {
 								_List_fromArray(
 									[
 										$elm$html$Html$Attributes$type_('checkbox'),
-										$elm$html$Html$Attributes$disabled(true),
-										A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Umgekehrt')
+										A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Umgekehrt'),
+										$elm$html$Html$Attributes$checked(model.a.R),
+										$elm$html$Html$Events$onClick(
+										$author$project$Main$ChangeReverse(!model.a.R))
 									]),
 								_List_Nil)
 							])),
@@ -6995,6 +7015,6 @@ var $author$project$Main$view = function (model) {
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{aH: $author$project$Main$init, aO: $author$project$Main$subscriptions, aQ: $author$project$Main$update, aR: $author$project$Main$view});
+	{aI: $author$project$Main$init, aO: $author$project$Main$subscriptions, aQ: $author$project$Main$update, aR: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
