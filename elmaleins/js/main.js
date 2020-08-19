@@ -6523,8 +6523,8 @@ var $author$project$Main$showFactorConfig = F5(
 							$elm$html$Html$input,
 							_List_fromArray(
 								[
-									$elm$html$Html$Attributes$type_('text'),
-									A2($elm$html$Html$Attributes$attribute, 'inputmode', 'numeric'),
+									$elm$html$Html$Attributes$type_('tel'),
+									A2($elm$html$Html$Attributes$attribute, 'inputmode', 'decimal'),
 									$elm$html$Html$Attributes$class('form-control'),
 									$elm$html$Html$Attributes$size(10),
 									$elm$html$Html$Attributes$placeholder('3-5, 8'),
