@@ -6524,6 +6524,7 @@ var $author$project$Main$showFactorConfig = F5(
 							_List_fromArray(
 								[
 									$elm$html$Html$Attributes$type_('text'),
+									A2($elm$html$Html$Attributes$attribute, 'inputmode', 'numeric'),
 									$elm$html$Html$Attributes$class('form-control'),
 									$elm$html$Html$Attributes$size(10),
 									$elm$html$Html$Attributes$placeholder('3-5, 8'),
@@ -6942,7 +6943,7 @@ var $author$project$Main$showSolvedChallenge = function (challenge) {
 		_List_fromArray(
 			[
 				$elm$html$Html$Attributes$class('alert'),
-				$elm$html$Html$Attributes$class('alert-info'),
+				$elm$html$Html$Attributes$class('alert-warning'),
 				A2($elm$html$Html$Attributes$attribute, 'role', 'alert')
 			]),
 		_List_fromArray(
