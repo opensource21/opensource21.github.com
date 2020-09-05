@@ -95,8 +95,19 @@
     </div>
 </div>
 <script>
-    Elm.Main.init({
-        node: document.getElementById('myapp')
+    const storageKey = 'elmaleins-config'
+    const storedState = localStorage.getItem(storageKey);
+    const startingState = storedState ? JSON.parse(storedState) : null;
+
+    var app = Elm.Main.init({
+        node: document.getElementById("myapp"),
+        flags: startingState
+    });
+    app.ports.storeConfig.subscribe(function (config) {
+        if (config.length > 0) {
+            const configJson = JSON.stringify(config);
+            localStorage.setItem(storageKey, configJson);
+        }
     });
 </script>
 
