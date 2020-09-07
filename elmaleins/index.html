@@ -84,6 +84,21 @@
                     <button type="button" class="btn btn-success" name="next">Next</button>
                 </div>
             </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="number" class="form-control" min="2" max="900" size="3" name="faktorA"
+                       aria-label="Faktor A"/>
+                <div class="input-group-append">
+                    <span class="input-group-text"> x </span>
+                </div>
+                <input type="number" class="form-control" min="2" max="900" size="3" name="faktorB"
+                       aria-label="Faktor B"/>
+                <div class="input-group-append">
+                    <span class="input-group-text"> = 24</span>
+                </div>
+                <div class=" input-group-append">
+                    <button type="button" class="btn btn-success" name="next">Next</button>
+                </div>
+            </div>
         </div>
         <div id="results">
             <hr>
@@ -99,10 +114,11 @@
     const storedState = localStorage.getItem(storageKey);
     const startingState = storedState ? JSON.parse(storedState) : null;
 
-    var app = Elm.Main.init({
+    const app = Elm.Main.init({
         node: document.getElementById("myapp"),
         flags: startingState
     });
+    // noinspection JSUnresolvedVariable
     app.ports.storeConfig.subscribe(function (config) {
         if (config.length > 0) {
             const configJson = JSON.stringify(config);

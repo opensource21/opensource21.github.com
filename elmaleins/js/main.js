@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.X.L === region.ab.L)
+	if (region.M.B === region.R.B)
 	{
-		return 'on line ' + region.X.L;
+		return 'on line ' + region.M.B;
 	}
-	return 'on lines ' + region.X.L + ' through ' + region.ab.L;
+	return 'on lines ' + region.M.B + ' through ' + region.R.B;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
+		impl.aC,
 		impl.aQ,
-		impl.aO,
+		impl.aN,
 		function() { return function() {} }
 	);
 });
@@ -2704,9 +2704,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		u: func(record.u),
-		Y: record.Y,
-		V: record.V
+		p: func(record.p),
+		N: record.N,
+		K: record.K
 	}
 });
 
@@ -2974,11 +2974,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.u;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.Y;
+		var message = !tag ? value : tag < 3 ? value.a : value.p;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.N;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.V) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.K) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,9 +3928,9 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
+		impl.aC,
 		impl.aQ,
-		impl.aO,
+		impl.aN,
 		function(sendToApp, initialModel) {
 			var view = impl.aR;
 			/**/
@@ -3964,11 +3964,11 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
+		impl.aC,
 		impl.aQ,
-		impl.aO,
+		impl.aN,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.W && impl.W(sendToApp)
+			var divertHrefToApp = impl.L && impl.L(sendToApp)
 			var view = impl.aR;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -3977,7 +3977,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aB);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aq);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aK;
-	var onUrlRequest = impl.aL;
+	var onUrlChange = impl.aE;
+	var onUrlRequest = impl.aF;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		W: function(sendToApp)
+		L: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.ao === next.ao
-							&& curr.af === next.af
-							&& curr.al.a === next.al.a
+							&& curr.ad === next.ad
+							&& curr.V === next.V
+							&& curr.aa.a === next.aa.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aI: function(flags)
+		aC: function(flags)
 		{
-			return A3(impl.aI, flags, _Browser_getUrl(), key);
+			return A3(impl.aC, flags, _Browser_getUrl(), key);
 		},
 		aR: impl.aR,
 		aQ: impl.aQ,
-		aO: impl.aO
+		aN: impl.aN
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aG: 'hidden', aC: 'visibilitychange' }
+		? { aA: 'hidden', ar: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aG: 'mozHidden', aC: 'mozvisibilitychange' }
+		? { aA: 'mozHidden', ar: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aG: 'msHidden', aC: 'msvisibilitychange' }
+		? { aA: 'msHidden', ar: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aG: 'webkitHidden', aC: 'webkitvisibilitychange' }
-		: { aG: 'hidden', aC: 'visibilitychange' };
+		? { aA: 'webkitHidden', ar: 'webkitvisibilitychange' }
+		: { aA: 'hidden', ar: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		as: _Browser_getScene(),
-		av: {
-			ax: _Browser_window.pageXOffset,
-			ay: _Browser_window.pageYOffset,
-			aw: _Browser_doc.documentElement.clientWidth,
-			ae: _Browser_doc.documentElement.clientHeight
+		ah: _Browser_getScene(),
+		ak: {
+			am: _Browser_window.pageXOffset,
+			an: _Browser_window.pageYOffset,
+			al: _Browser_doc.documentElement.clientWidth,
+			U: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aw: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		ae: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		al: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		U: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			as: {
-				aw: node.scrollWidth,
-				ae: node.scrollHeight
+			ah: {
+				al: node.scrollWidth,
+				U: node.scrollHeight
 			},
-			av: {
-				ax: node.scrollLeft,
-				ay: node.scrollTop,
-				aw: node.clientWidth,
-				ae: node.clientHeight
+			ak: {
+				am: node.scrollLeft,
+				an: node.scrollTop,
+				al: node.clientWidth,
+				U: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			as: _Browser_getScene(),
-			av: {
-				ax: x,
-				ay: y,
-				aw: _Browser_doc.documentElement.clientWidth,
-				ae: _Browser_doc.documentElement.clientHeight
+			ah: _Browser_getScene(),
+			ak: {
+				am: x,
+				an: y,
+				al: _Browser_doc.documentElement.clientWidth,
+				U: _Browser_doc.documentElement.clientHeight
 			},
-			aE: {
-				ax: x + rect.left,
-				ay: y + rect.top,
-				aw: rect.width,
-				ae: rect.height
+			au: {
+				am: x + rect.left,
+				an: y + rect.top,
+				al: rect.width,
+				U: rect.height
 			}
 		};
 	});
@@ -4942,7 +4942,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {ad: fragment, af: host, aj: path, al: port_, ao: protocol, ap: query};
+		return {T: fragment, V: host, Z: path, aa: port_, ad: protocol, ae: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5221,26 +5221,26 @@ var $elm$core$Task$perform = F2(
 			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Main$Config = F5(
+var $author$project$Model$Config = F5(
 	function (poolA, poolB, timeoutInSeconds, reverseChallenges, show) {
-		return {o: poolA, p: poolB, N: reverseChallenges, F: show, P: timeoutInSeconds};
+		return {aH: poolA, aI: poolB, aL: reverseChallenges, aM: show, aO: timeoutInSeconds};
 	});
-var $author$project$Main$FactorPool = F3(
+var $author$project$Model$FactorPool = F3(
 	function (firstElement, furtherElements, changes) {
-		return {s: changes, D: firstElement, k: furtherElements};
+		return {as: changes, ay: firstElement, az: furtherElements};
 	});
-var $author$project$Main$Model = F4(
+var $author$project$Model$Model = F4(
 	function (config, currentChallenge, remainingTime, solvedChallenges) {
-		return {a: config, t: currentChallenge, E: remainingTime, w: solvedChallenges};
+		return {a: config, s: currentChallenge, G: remainingTime, H: solvedChallenges};
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$list = _Json_decodeList;
 var $elm$json$Json$Decode$map3 = _Json_map3;
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Main$factorPoolDecoder = A4(
+var $author$project$Json$factorPoolDecoder = A4(
 	$elm$json$Json$Decode$map3,
-	$author$project$Main$FactorPool,
+	$author$project$Model$FactorPool,
 	A2($elm$json$Json$Decode$field, 'firstElement', $elm$json$Json$Decode$int),
 	A2(
 		$elm$json$Json$Decode$field,
@@ -5249,22 +5249,22 @@ var $author$project$Main$factorPoolDecoder = A4(
 	A2($elm$json$Json$Decode$field, 'changes', $elm$json$Json$Decode$string));
 var $elm$json$Json$Decode$map5 = _Json_map5;
 var $elm$json$Json$Decode$bool = _Json_decodeBool;
-var $author$project$Main$reverseChallengesDecoder = A2($elm$json$Json$Decode$field, 'reverseChallenges', $elm$json$Json$Decode$bool);
-var $author$project$Main$showDecoder = A2($elm$json$Json$Decode$field, 'show', $elm$json$Json$Decode$bool);
-var $author$project$Main$timeoutInSecondsDecoder = A2($elm$json$Json$Decode$field, 'timeoutInSeconds', $elm$json$Json$Decode$int);
-var $author$project$Main$configDecoder = A6(
+var $author$project$Json$reverseChallengesDecoder = A2($elm$json$Json$Decode$field, 'reverseChallenges', $elm$json$Json$Decode$bool);
+var $author$project$Json$showDecoder = A2($elm$json$Json$Decode$field, 'show', $elm$json$Json$Decode$bool);
+var $author$project$Json$timeoutInSecondsDecoder = A2($elm$json$Json$Decode$field, 'timeoutInSeconds', $elm$json$Json$Decode$int);
+var $author$project$Json$configDecoder = A6(
 	$elm$json$Json$Decode$map5,
-	$author$project$Main$Config,
-	A2($elm$json$Json$Decode$field, 'poolA', $author$project$Main$factorPoolDecoder),
-	A2($elm$json$Json$Decode$field, 'poolB', $author$project$Main$factorPoolDecoder),
-	$author$project$Main$timeoutInSecondsDecoder,
-	$author$project$Main$reverseChallengesDecoder,
-	$author$project$Main$showDecoder);
+	$author$project$Model$Config,
+	A2($elm$json$Json$Decode$field, 'poolA', $author$project$Json$factorPoolDecoder),
+	A2($elm$json$Json$Decode$field, 'poolB', $author$project$Json$factorPoolDecoder),
+	$author$project$Json$timeoutInSecondsDecoder,
+	$author$project$Json$reverseChallengesDecoder,
+	$author$project$Json$showDecoder);
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
-var $author$project$Main$fromJson = function (configJsonMB) {
+var $author$project$Json$fromJson = function (configJsonMB) {
 	if (!configJsonMB.$) {
 		var configJson = configJsonMB.a;
-		var _v1 = A2($elm$json$Json$Decode$decodeString, $author$project$Main$configDecoder, configJson);
+		var _v1 = A2($elm$json$Json$Decode$decodeString, $author$project$Json$configDecoder, configJson);
 		if (!_v1.$) {
 			var config = _v1.a;
 			return $elm$core$Maybe$Just(config);
@@ -5290,28 +5290,28 @@ var $author$project$Main$init = function (flags) {
 	var config = A2(
 		$elm$core$Maybe$withDefault,
 		A5(
-			$author$project$Main$Config,
+			$author$project$Model$Config,
 			A3(
-				$author$project$Main$FactorPool,
+				$author$project$Model$FactorPool,
 				2,
 				A2($elm$core$List$range, 3, 14),
 				''),
 			A3(
-				$author$project$Main$FactorPool,
+				$author$project$Model$FactorPool,
 				1,
 				A2($elm$core$List$range, 10, 14),
 				''),
 			20,
 			false,
 			false),
-		$author$project$Main$fromJson(flags));
+		$author$project$Json$fromJson(flags));
 	return _Utils_Tuple2(
-		A4($author$project$Main$Model, config, $elm$core$Maybe$Nothing, 0, _List_Nil),
+		A4($author$project$Model$Model, config, $elm$core$Maybe$Nothing, 0, _List_Nil),
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$json$Json$Decode$null = _Json_decodeNull;
 var $elm$json$Json$Decode$oneOf = _Json_oneOf;
-var $author$project$Main$Tick = F2(
+var $author$project$Model$Tick = F2(
 	function (a, b) {
 		return {$: 3, a: a, b: b};
 	});
@@ -5321,7 +5321,7 @@ var $elm$time$Time$Every = F2(
 	});
 var $elm$time$Time$State = F2(
 	function (taggers, processes) {
-		return {an: processes, au: taggers};
+		return {ac: processes, aj: taggers};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5613,7 +5613,7 @@ var $elm$time$Time$spawnHelp = F3(
 	});
 var $elm$time$Time$onEffects = F3(
 	function (router, subs, _v0) {
-		var processes = _v0.an;
+		var processes = _v0.ac;
 		var rightStep = F3(
 			function (_v6, id, _v7) {
 				var spawns = _v7.a;
@@ -5682,7 +5682,7 @@ var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
 var $elm$time$Time$onSelfMsg = F3(
 	function (router, interval, state) {
-		var _v0 = A2($elm$core$Dict$get, interval, state.au);
+		var _v0 = A2($elm$core$Dict$get, interval, state.aj);
 		if (_v0.$ === 1) {
 			return $elm$core$Task$succeed(state);
 		} else {
@@ -5731,7 +5731,7 @@ var $elm$time$Time$every = F2(
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subscriptions = function (model) {
-	var _v0 = model.t;
+	var _v0 = model.s;
 	if (_v0.$ === 1) {
 		return $elm$core$Platform$Sub$none;
 	} else {
@@ -5739,13 +5739,13 @@ var $author$project$Main$subscriptions = function (model) {
 		return A2(
 			$elm$time$Time$every,
 			1000,
-			$author$project$Main$Tick(c));
+			$author$project$Model$Tick(c));
 	}
 };
-var $author$project$Main$NewChallenge = function (a) {
+var $author$project$Model$NewChallenge = function (a) {
 	return {$: 2, a: a};
 };
-var $author$project$Main$Solved = function (a) {
+var $author$project$Model$Solved = function (a) {
 	return {$: 4, a: a};
 };
 var $elm$core$List$append = F2(
@@ -5798,7 +5798,7 @@ var $elm$core$Array$get = F2(
 			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
 			A3($elm$core$Array$getHelp, startShift, index, tree)));
 	});
-var $author$project$Main$convertToRange = function (array) {
+var $author$project$Model$convertToRange = function (array) {
 	var b = A2($elm$core$Array$get, 1, array);
 	var a = A2($elm$core$Array$get, 0, array);
 	var _v0 = _Utils_Tuple2(a, b);
@@ -5880,9 +5880,9 @@ var $elm$core$Array$fromList = function (list) {
 	}
 };
 var $elm$core$String$trim = _String_trim;
-var $author$project$Main$convertElementToList = function (definition) {
+var $author$project$Model$convertElementToList = function (definition) {
 	if (A2($elm$core$String$contains, '-', definition)) {
-		return $author$project$Main$convertToRange(
+		return $author$project$Model$convertToRange(
 			$elm$core$Array$fromList(
 				A2(
 					$elm$core$List$filterMap,
@@ -5906,7 +5906,7 @@ var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
-var $author$project$Main$convertToList = function (definition) {
+var $author$project$Model$convertToList = function (definition) {
 	return $elm$core$List$sort(
 		A3(
 			$elm$core$List$foldl,
@@ -5914,31 +5914,35 @@ var $author$project$Main$convertToList = function (definition) {
 			_List_Nil,
 			A2(
 				$elm$core$List$map,
-				$author$project$Main$convertElementToList,
+				$author$project$Model$convertElementToList,
 				A2(
 					$elm$core$List$map,
 					$elm$core$String$trim,
 					A2($elm$core$String$split, ',', definition)))));
 };
-var $author$project$Main$addChanges = function (pool) {
+var $author$project$Model$addChanges = function (pool) {
 	return _Utils_update(
 		pool,
 		{
-			s: '',
-			k: A2(
+			as: '',
+			az: A2(
 				$elm$core$List$append,
-				pool.k,
-				$author$project$Main$convertToList(pool.s))
+				pool.az,
+				$author$project$Model$convertToList(pool.as))
 		});
 };
-var $author$project$Main$Challenge = F3(
+var $author$project$Model$Challenge = F3(
 	function (faktorA, faktorB, result) {
-		return {J: faktorA, K: faktorB, M: result};
+		return {aw: faktorA, ax: faktorB, aJ: result};
 	});
-var $author$project$Main$getChallenge = F2(
-	function (a, b) {
-		return A3(
-			$author$project$Main$Challenge,
+var $author$project$Main$getChallenge = F3(
+	function (reverse, a, b) {
+		return reverse ? A3(
+			$author$project$Model$Challenge,
+			$elm$core$Maybe$Nothing,
+			$elm$core$Maybe$Nothing,
+			$elm$core$Maybe$Just(a * b)) : A3(
+			$author$project$Model$Challenge,
 			$elm$core$Maybe$Just(a),
 			$elm$core$Maybe$Just(b),
 			$elm$core$Maybe$Nothing);
@@ -6063,27 +6067,27 @@ var $elm$random$Random$uniform = F2(
 			A2($elm$core$List$map, $elm$random$Random$addOne, valueList));
 	});
 var $author$project$Main$randomFactor = function (factorPool) {
-	return A2($elm$random$Random$uniform, factorPool.D, factorPool.k);
+	return A2($elm$random$Random$uniform, factorPool.ay, factorPool.az);
 };
-var $author$project$Main$challengeGen = F2(
-	function (factorPoolA, factorPoolB) {
+var $author$project$Main$challengeGen = F3(
+	function (reverse, factorPoolA, factorPoolB) {
 		return A3(
 			$elm$random$Random$map2,
 			F2(
 				function (a, b) {
-					return A2($author$project$Main$getChallenge, a, b);
+					return A3($author$project$Main$getChallenge, reverse, a, b);
 				}),
 			$author$project$Main$randomFactor(factorPoolA),
 			$author$project$Main$randomFactor(factorPoolB));
 	});
-var $author$project$Main$challengeResultCorrect = function (challenge) {
+var $author$project$Model$challengeResultCorrect = function (challenge) {
 	return _Utils_eq(
-		A2($elm$core$Maybe$withDefault, 0, challenge.J) * A2($elm$core$Maybe$withDefault, 0, challenge.K),
-		A2($elm$core$Maybe$withDefault, -1, challenge.M));
+		A2($elm$core$Maybe$withDefault, 0, challenge.aw) * A2($elm$core$Maybe$withDefault, 0, challenge.ax),
+		A2($elm$core$Maybe$withDefault, -1, challenge.aJ));
 };
 var $elm$core$Basics$not = _Basics_not;
-var $author$project$Main$challengeResultWrong = function (challenge) {
-	return !$author$project$Main$challengeResultCorrect(challenge);
+var $author$project$Model$challengeResultWrong = function (challenge) {
+	return !$author$project$Model$challengeResultCorrect(challenge);
 };
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
@@ -6096,7 +6100,7 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $author$project$Main$count = F2(
+var $author$project$Model$count = F2(
 	function (predicate, challenges) {
 		return $elm$core$List$length(
 			A2($elm$core$List$filter, predicate, challenges));
@@ -6162,7 +6166,7 @@ var $elm$random$Random$generate = F2(
 		return $elm$random$Random$command(
 			A2($elm$random$Random$map, tagger, generator));
 	});
-var $author$project$Main$removeFromList = F2(
+var $author$project$Model$removeFromList = F2(
 	function (search, list) {
 		if (!list.b) {
 			return _List_Nil;
@@ -6172,40 +6176,40 @@ var $author$project$Main$removeFromList = F2(
 			return _Utils_eq(first, search) ? other : A2(
 				$elm$core$List$cons,
 				first,
-				A2($author$project$Main$removeFromList, search, other));
+				A2($author$project$Model$removeFromList, search, other));
 		}
 	});
-var $author$project$Main$removeElement = F2(
+var $author$project$Model$removeElement = F2(
 	function (search, pool) {
-		var _v0 = pool.k;
+		var _v0 = pool.az;
 		if (!_v0.b) {
 			return pool;
 		} else {
 			var first = _v0.a;
 			var others = _v0.b;
-			return _Utils_eq(pool.D, search) ? _Utils_update(
+			return _Utils_eq(pool.ay, search) ? _Utils_update(
 				pool,
-				{D: first, k: others}) : _Utils_update(
+				{ay: first, az: others}) : _Utils_update(
 				pool,
 				{
-					k: A2($author$project$Main$removeFromList, search, pool.k)
+					az: A2($author$project$Model$removeFromList, search, pool.az)
 				});
 		}
 	});
-var $author$project$Main$removeChanges = function (pool) {
+var $author$project$Model$removeChanges = function (pool) {
 	return A3(
 		$elm$core$List$foldl,
-		$author$project$Main$removeElement,
+		$author$project$Model$removeElement,
 		_Utils_update(
 			pool,
-			{s: ''}),
-		$author$project$Main$convertToList(pool.s));
+			{as: ''}),
+		$author$project$Model$convertToList(pool.as));
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $author$project$Ports$storeConfig = _Platform_outgoingPort('storeConfig', $elm$json$Json$Encode$string);
 var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$json$Json$Encode$int = _Json_wrap;
-var $author$project$Main$firstElement = function (value) {
+var $author$project$Json$firstElement = function (value) {
 	return _Utils_Tuple2(
 		'firstElement',
 		$elm$json$Json$Encode$int(value));
@@ -6219,7 +6223,7 @@ var $elm$json$Json$Encode$list = F2(
 				_Json_emptyArray(0),
 				entries));
 	});
-var $author$project$Main$furtherElements = function (values) {
+var $author$project$Json$furtherElements = function (values) {
 	return _Utils_Tuple2(
 		'furtherElements',
 		A2($elm$json$Json$Encode$list, $elm$json$Json$Encode$int, values));
@@ -6237,36 +6241,36 @@ var $elm$json$Json$Encode$object = function (pairs) {
 			_Json_emptyObject(0),
 			pairs));
 };
-var $author$project$Main$factorPoolToJson = function (pool) {
+var $author$project$Json$factorPoolToJson = function (pool) {
 	return $elm$json$Json$Encode$object(
 		_List_fromArray(
 			[
-				$author$project$Main$firstElement(pool.D),
-				$author$project$Main$furtherElements(pool.k),
+				$author$project$Json$firstElement(pool.ay),
+				$author$project$Json$furtherElements(pool.az),
 				_Utils_Tuple2(
 				'changes',
-				$elm$json$Json$Encode$string(pool.s))
+				$elm$json$Json$Encode$string(pool.as))
 			]));
 };
-var $author$project$Main$toJson = function (config) {
+var $author$project$Json$toJson = function (config) {
 	return $elm$json$Json$Encode$object(
 		_List_fromArray(
 			[
 				_Utils_Tuple2(
 				'poolA',
-				$author$project$Main$factorPoolToJson(config.o)),
+				$author$project$Json$factorPoolToJson(config.aH)),
 				_Utils_Tuple2(
 				'poolB',
-				$author$project$Main$factorPoolToJson(config.p)),
+				$author$project$Json$factorPoolToJson(config.aI)),
 				_Utils_Tuple2(
 				'timeoutInSeconds',
-				$elm$json$Json$Encode$int(config.P)),
+				$elm$json$Json$Encode$int(config.aO)),
 				_Utils_Tuple2(
 				'reverseChallenges',
-				$elm$json$Json$Encode$bool(config.N)),
+				$elm$json$Json$Encode$bool(config.aL)),
 				_Utils_Tuple2(
 				'show',
-				$elm$json$Json$Encode$bool(config.F))
+				$elm$json$Json$Encode$bool(config.aM))
 			]));
 };
 var $author$project$Main$saveConfig = function (config) {
@@ -6274,39 +6278,39 @@ var $author$project$Main$saveConfig = function (config) {
 		A2(
 			$elm$json$Json$Encode$encode,
 			0,
-			$author$project$Main$toJson(config)));
+			$author$project$Json$toJson(config)));
 };
-var $author$project$Main$setChanges = F2(
+var $author$project$Model$setChanges = F2(
 	function (newChanges, pool) {
 		return _Utils_update(
 			pool,
-			{s: newChanges});
+			{as: newChanges});
 	});
-var $author$project$Main$setConfig = F2(
+var $author$project$Model$setConfig = F2(
 	function (newConfig, model) {
 		return _Utils_update(
 			model,
 			{a: newConfig});
 	});
-var $author$project$Main$setPoolA = F2(
+var $author$project$Model$setPoolA = F2(
 	function (pool, config) {
 		return _Utils_update(
 			config,
-			{o: pool});
+			{aH: pool});
 	});
-var $author$project$Main$setPoolB = F2(
+var $author$project$Model$setPoolB = F2(
 	function (pool, config) {
 		return _Utils_update(
 			config,
-			{p: pool});
+			{aI: pool});
 	});
-var $author$project$Main$setReverse = F2(
+var $author$project$Model$setReverse = F2(
 	function (config, newReverse) {
 		return _Utils_update(
 			config,
-			{N: newReverse});
+			{aL: newReverse});
 	});
-var $author$project$Main$setTimeoutInSeconds = F2(
+var $author$project$Model$setTimeoutInSeconds = F2(
 	function (config, newTime) {
 		if (newTime.$ === 1) {
 			return config;
@@ -6314,110 +6318,110 @@ var $author$project$Main$setTimeoutInSeconds = F2(
 			var time = newTime.a;
 			return _Utils_update(
 				config,
-				{P: time});
+				{aO: time});
 		}
 	});
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 8:
+			case 10:
 				var newTime = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
 							a: A2(
-								$author$project$Main$setTimeoutInSeconds,
+								$author$project$Model$setTimeoutInSeconds,
 								model.a,
 								$elm$core$String$toInt(newTime))
 						}),
 					$elm$core$Platform$Cmd$none);
-			case 9:
+			case 11:
 				var newReverse = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							a: A2($author$project$Main$setReverse, model.a, newReverse)
+							a: A2($author$project$Model$setReverse, model.a, newReverse)
 						}),
 					$elm$core$Platform$Cmd$none);
+			case 14:
+				var input = msg.a;
+				return _Utils_Tuple2(
+					A2(
+						$author$project$Model$setConfig,
+						A2(
+							$author$project$Model$setPoolA,
+							A2($author$project$Model$setChanges, input, model.a.aH),
+							model.a),
+						model),
+					$elm$core$Platform$Cmd$none);
+			case 17:
+				var input = msg.a;
+				return _Utils_Tuple2(
+					A2(
+						$author$project$Model$setConfig,
+						A2(
+							$author$project$Model$setPoolB,
+							A2($author$project$Model$setChanges, input, model.a.aI),
+							model.a),
+						model),
+					$elm$core$Platform$Cmd$none);
 			case 12:
-				var input = msg.a;
 				return _Utils_Tuple2(
 					A2(
-						$author$project$Main$setConfig,
+						$author$project$Model$setConfig,
 						A2(
-							$author$project$Main$setPoolA,
-							A2($author$project$Main$setChanges, input, model.a.o),
-							model.a),
-						model),
-					$elm$core$Platform$Cmd$none);
-			case 15:
-				var input = msg.a;
-				return _Utils_Tuple2(
-					A2(
-						$author$project$Main$setConfig,
-						A2(
-							$author$project$Main$setPoolB,
-							A2($author$project$Main$setChanges, input, model.a.p),
-							model.a),
-						model),
-					$elm$core$Platform$Cmd$none);
-			case 10:
-				return _Utils_Tuple2(
-					A2(
-						$author$project$Main$setConfig,
-						A2(
-							$author$project$Main$setPoolA,
-							$author$project$Main$addChanges(model.a.o),
-							model.a),
-						model),
-					$elm$core$Platform$Cmd$none);
-			case 11:
-				return _Utils_Tuple2(
-					A2(
-						$author$project$Main$setConfig,
-						A2(
-							$author$project$Main$setPoolA,
-							$author$project$Main$removeChanges(model.a.o),
+							$author$project$Model$setPoolA,
+							$author$project$Model$addChanges(model.a.aH),
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
 			case 13:
 				return _Utils_Tuple2(
 					A2(
-						$author$project$Main$setConfig,
+						$author$project$Model$setConfig,
 						A2(
-							$author$project$Main$setPoolB,
-							$author$project$Main$addChanges(model.a.p),
+							$author$project$Model$setPoolA,
+							$author$project$Model$removeChanges(model.a.aH),
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 14:
+			case 15:
 				return _Utils_Tuple2(
 					A2(
-						$author$project$Main$setConfig,
+						$author$project$Model$setConfig,
 						A2(
-							$author$project$Main$setPoolB,
-							$author$project$Main$removeChanges(model.a.p),
+							$author$project$Model$setPoolB,
+							$author$project$Model$addChanges(model.a.aI),
 							model.a),
 						model),
 					$elm$core$Platform$Cmd$none);
-			case 6:
+			case 16:
+				return _Utils_Tuple2(
+					A2(
+						$author$project$Model$setConfig,
+						A2(
+							$author$project$Model$setPoolB,
+							$author$project$Model$removeChanges(model.a.aI),
+							model.a),
+						model),
+					$elm$core$Platform$Cmd$none);
+			case 8:
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
-					{F: true});
+					{aM: true});
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{a: newConfig}),
 					$elm$core$Platform$Cmd$none);
-			case 7:
+			case 9:
 				var config = msg.a;
 				var newConfig = _Utils_update(
 					config,
-					{F: false});
+					{aM: false});
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -6427,16 +6431,16 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{w: _List_Nil}),
+						{H: _List_Nil}),
 					A2(
 						$elm$random$Random$generate,
-						$author$project$Main$NewChallenge,
-						A2($author$project$Main$challengeGen, model.a.o, model.a.p)));
+						$author$project$Model$NewChallenge,
+						A3($author$project$Main$challengeGen, model.a.aL, model.a.aH, model.a.aI)));
 			case 1:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{t: $elm$core$Maybe$Nothing}),
+						{s: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			case 5:
 				var challenge = msg.a;
@@ -6445,12 +6449,40 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						challenge,
 						{
-							M: $elm$core$String$toInt(result)
+							aJ: $elm$core$String$toInt(result)
 						}));
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{t: newChallenge}),
+						{s: newChallenge}),
+					$elm$core$Platform$Cmd$none);
+			case 6:
+				var challenge = msg.a;
+				var faktor = msg.b;
+				var newChallenge = $elm$core$Maybe$Just(
+					_Utils_update(
+						challenge,
+						{
+							aw: $elm$core$String$toInt(faktor)
+						}));
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{s: newChallenge}),
+					$elm$core$Platform$Cmd$none);
+			case 7:
+				var challenge = msg.a;
+				var faktor = msg.b;
+				var newChallenge = $elm$core$Maybe$Just(
+					_Utils_update(
+						challenge,
+						{
+							ax: $elm$core$String$toInt(faktor)
+						}));
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{s: newChallenge}),
 					$elm$core$Platform$Cmd$none);
 			case 4:
 				var challenge = msg.a;
@@ -6458,35 +6490,35 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							t: $elm$core$Maybe$Nothing,
-							w: A2($elm$core$List$cons, challenge, model.w)
+							s: $elm$core$Maybe$Nothing,
+							H: A2($elm$core$List$cons, challenge, model.H)
 						}),
 					(A2(
-						$author$project$Main$count,
-						$author$project$Main$challengeResultWrong,
-						A2($elm$core$List$cons, challenge, model.w)) < 3) ? A2(
+						$author$project$Model$count,
+						$author$project$Model$challengeResultWrong,
+						A2($elm$core$List$cons, challenge, model.H)) < 3) ? A2(
 						$elm$random$Random$generate,
-						$author$project$Main$NewChallenge,
-						A2($author$project$Main$challengeGen, model.a.o, model.a.p)) : $elm$core$Platform$Cmd$none);
+						$author$project$Model$NewChallenge,
+						A3($author$project$Main$challengeGen, model.a.aL, model.a.aH, model.a.aI)) : $elm$core$Platform$Cmd$none);
 			case 2:
 				var newChallenge = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							t: $elm$core$Maybe$Just(newChallenge),
-							E: model.a.P
+							s: $elm$core$Maybe$Just(newChallenge),
+							G: model.a.aO
 						}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var challenge = msg.a;
-				return ((model.E <= 1) ? $author$project$Main$update(
-					$author$project$Main$Solved(challenge)) : function (m) {
+				return ((model.G <= 1) ? $author$project$Main$update(
+					$author$project$Model$Solved(challenge)) : function (m) {
 					return _Utils_Tuple2(m, $elm$core$Platform$Cmd$none);
 				})(
 					_Utils_update(
 						model,
-						{E: model.E - 1}));
+						{G: model.G - 1}));
 		}
 	});
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -6499,22 +6531,22 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
-var $author$project$Main$AddToPoolA = {$: 10};
-var $author$project$Main$AddToPoolB = {$: 13};
-var $author$project$Main$ChangeReverse = function (a) {
-	return {$: 9, a: a};
+var $author$project$Model$AddToPoolA = {$: 12};
+var $author$project$Model$AddToPoolB = {$: 15};
+var $author$project$Model$ChangeReverse = function (a) {
+	return {$: 11, a: a};
 };
-var $author$project$Main$ChangeTimeout = function (a) {
-	return {$: 8, a: a};
+var $author$project$Model$ChangeTimeout = function (a) {
+	return {$: 10, a: a};
 };
-var $author$project$Main$ChangesPoolA = function (a) {
-	return {$: 12, a: a};
+var $author$project$Model$ChangesPoolA = function (a) {
+	return {$: 14, a: a};
 };
-var $author$project$Main$ChangesPoolB = function (a) {
-	return {$: 15, a: a};
+var $author$project$Model$ChangesPoolB = function (a) {
+	return {$: 17, a: a};
 };
-var $author$project$Main$RemoveFromPoolA = {$: 11};
-var $author$project$Main$RemoveFromPoolB = {$: 14};
+var $author$project$Model$RemoveFromPoolA = {$: 13};
+var $author$project$Model$RemoveFromPoolB = {$: 16};
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -6586,6 +6618,7 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			$elm$html$Html$Events$alwaysStop,
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
+var $elm$html$Html$Attributes$readonly = $elm$html$Html$Attributes$boolProperty('readOnly');
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
@@ -6600,7 +6633,7 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $author$project$Main$showFactorConfig = F5(
+var $author$project$View$showFactorConfig = F5(
 	function (pool, configName, changeMsg, addMsg, rmMsg) {
 		return A2(
 			$elm$html$Html$div,
@@ -6630,7 +6663,7 @@ var $author$project$Main$showFactorConfig = F5(
 									$elm$core$List$map,
 									$elm$core$String$fromInt,
 									$elm$core$List$sort(
-										A2($elm$core$List$cons, pool.D, pool.k)))))
+										A2($elm$core$List$cons, pool.ay, pool.az)))))
 						])),
 					A2(
 					$elm$html$Html$div,
@@ -6654,7 +6687,7 @@ var $author$project$Main$showFactorConfig = F5(
 									$elm$html$Html$Attributes$name('range_' + configName),
 									A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Faktoren für ' + configName),
 									$elm$html$Html$Events$onInput(changeMsg),
-									$elm$html$Html$Attributes$value(pool.s)
+									$elm$html$Html$Attributes$value(pool.as)
 								]),
 							_List_Nil),
 							A2(
@@ -6698,8 +6731,8 @@ var $author$project$Main$showFactorConfig = F5(
 				]));
 	});
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $author$project$Main$showConfiguration = function (model) {
-	return model.a.F ? A2(
+var $author$project$View$showConfiguration = function (model) {
+	return model.a.aM ? A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
@@ -6714,8 +6747,8 @@ var $author$project$Main$showConfiguration = function (model) {
 					[
 						$elm$html$Html$text('Konfiguration')
 					])),
-				A5($author$project$Main$showFactorConfig, model.a.o, 'A', $author$project$Main$ChangesPoolA, $author$project$Main$AddToPoolA, $author$project$Main$RemoveFromPoolA),
-				A5($author$project$Main$showFactorConfig, model.a.p, 'B', $author$project$Main$ChangesPoolB, $author$project$Main$AddToPoolB, $author$project$Main$RemoveFromPoolB),
+				A5($author$project$View$showFactorConfig, model.a.aH, 'A', $author$project$Model$ChangesPoolA, $author$project$Model$AddToPoolA, $author$project$Model$RemoveFromPoolA),
+				A5($author$project$View$showFactorConfig, model.a.aI, 'B', $author$project$Model$ChangesPoolB, $author$project$Model$AddToPoolB, $author$project$Model$RemoveFromPoolB),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -6737,9 +6770,9 @@ var $author$project$Main$showConfiguration = function (model) {
 								$elm$html$Html$Attributes$max('30'),
 								$elm$html$Html$Attributes$size(2),
 								A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Definiere den Timeout.'),
-								$elm$html$Html$Events$onInput($author$project$Main$ChangeTimeout),
+								$elm$html$Html$Events$onInput($author$project$Model$ChangeTimeout),
 								$elm$html$Html$Attributes$value(
-								$elm$core$String$fromInt(model.a.P))
+								$elm$core$String$fromInt(model.a.aO))
 							]),
 						_List_Nil),
 						A2(
@@ -6775,9 +6808,11 @@ var $author$project$Main$showConfiguration = function (model) {
 									[
 										$elm$html$Html$Attributes$type_('checkbox'),
 										A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Umgekehrt'),
-										$elm$html$Html$Attributes$checked(model.a.N),
+										$elm$html$Html$Attributes$readonly(
+										!_Utils_eq(model.s, $elm$core$Maybe$Nothing)),
+										$elm$html$Html$Attributes$checked(model.a.aL),
 										$elm$html$Html$Events$onClick(
-										$author$project$Main$ChangeReverse(!model.a.N))
+										$author$project$Model$ChangeReverse(!model.a.aL))
 									]),
 								_List_Nil)
 							])),
@@ -6804,15 +6839,15 @@ var $author$project$Main$showConfiguration = function (model) {
 				A2($elm$html$Html$hr, _List_Nil, _List_Nil)
 			])) : $elm$html$Html$text('');
 };
-var $author$project$Main$HideConfig = function (a) {
-	return {$: 7, a: a};
+var $author$project$Model$HideConfig = function (a) {
+	return {$: 9, a: a};
 };
-var $author$project$Main$ShowConfig = function (a) {
-	return {$: 6, a: a};
+var $author$project$Model$ShowConfig = function (a) {
+	return {$: 8, a: a};
 };
-var $author$project$Main$StartChallenges = {$: 0};
-var $author$project$Main$StopChallenges = {$: 1};
-var $author$project$Main$showControl = function (model) {
+var $author$project$Model$StartChallenges = {$: 0};
+var $author$project$Model$StopChallenges = {$: 1};
+var $author$project$View$showControl = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -6821,7 +6856,7 @@ var $author$project$Main$showControl = function (model) {
 			]),
 		_List_fromArray(
 			[
-				model.a.F ? A2(
+				model.a.aM ? A2(
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
@@ -6830,7 +6865,7 @@ var $author$project$Main$showControl = function (model) {
 						$elm$html$Html$Attributes$class('btn-primary'),
 						$elm$html$Html$Attributes$name('hide'),
 						$elm$html$Html$Events$onClick(
-						$author$project$Main$HideConfig(model.a))
+						$author$project$Model$HideConfig(model.a))
 					]),
 				_List_fromArray(
 					[
@@ -6844,7 +6879,7 @@ var $author$project$Main$showControl = function (model) {
 						$elm$html$Html$Attributes$class('btn-primary'),
 						$elm$html$Html$Attributes$name('show'),
 						$elm$html$Html$Events$onClick(
-						$author$project$Main$ShowConfig(model.a))
+						$author$project$Model$ShowConfig(model.a))
 					]),
 				_List_fromArray(
 					[
@@ -6852,7 +6887,7 @@ var $author$project$Main$showControl = function (model) {
 					])),
 				$elm$html$Html$text(' '),
 				function () {
-				var _v0 = model.t;
+				var _v0 = model.s;
 				if (_v0.$ === 1) {
 					return A2(
 						$elm$html$Html$button,
@@ -6862,7 +6897,7 @@ var $author$project$Main$showControl = function (model) {
 								$elm$html$Html$Attributes$class('btn'),
 								$elm$html$Html$Attributes$class('btn-primary'),
 								$elm$html$Html$Attributes$name('start'),
-								$elm$html$Html$Events$onClick($author$project$Main$StartChallenges)
+								$elm$html$Html$Events$onClick($author$project$Model$StartChallenges)
 							]),
 						_List_fromArray(
 							[
@@ -6877,7 +6912,7 @@ var $author$project$Main$showControl = function (model) {
 								$elm$html$Html$Attributes$class('btn'),
 								$elm$html$Html$Attributes$class('btn-primary'),
 								$elm$html$Html$Attributes$name('start'),
-								$elm$html$Html$Events$onClick($author$project$Main$StopChallenges)
+								$elm$html$Html$Events$onClick($author$project$Model$StopChallenges)
 							]),
 						_List_fromArray(
 							[
@@ -6887,7 +6922,7 @@ var $author$project$Main$showControl = function (model) {
 			}()
 			]));
 };
-var $author$project$Main$Result = F2(
+var $author$project$Model$Result = F2(
 	function (a, b) {
 		return {$: 5, a: a, b: b};
 	});
@@ -6901,14 +6936,192 @@ var $elm$core$Maybe$map = F2(
 			return $elm$core$Maybe$Nothing;
 		}
 	});
-var $author$project$Main$maybeIntToString = function (maybeInt) {
+var $author$project$View$maybeIntToString = function (maybeInt) {
 	return A2(
 		$elm$core$Maybe$withDefault,
 		'',
 		A2($elm$core$Maybe$map, $elm$core$String$fromInt, maybeInt));
 };
-var $author$project$Main$showCurrentChallenge = F2(
-	function (challenge, remainingTime) {
+var $author$project$View$numberInput = F4(
+	function (attributName, label, startValue, msg) {
+		return A2(
+			$elm$html$Html$input,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$type_('number'),
+					$elm$html$Html$Attributes$class('form-control'),
+					$elm$html$Html$Attributes$min('2'),
+					$elm$html$Html$Attributes$max('900'),
+					$elm$html$Html$Attributes$size(3),
+					$elm$html$Html$Attributes$name(attributName),
+					A2($elm$html$Html$Attributes$attribute, 'aria-label', label),
+					$elm$html$Html$Attributes$value(
+					$author$project$View$maybeIntToString(startValue)),
+					$elm$html$Html$Events$onInput(msg)
+				]),
+			_List_Nil);
+	});
+var $author$project$View$showNormalChallenge = function (challenge) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('input-group'),
+				$elm$html$Html$Attributes$class('input-group-sm'),
+				$elm$html$Html$Attributes$class('mb-3')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('input-group-prepend')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('input-group-text')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								$author$project$View$maybeIntToString(challenge.aw) + (' x ' + ($author$project$View$maybeIntToString(challenge.ax) + ' = ')))
+							]))
+					])),
+				A4(
+				$author$project$View$numberInput,
+				'result',
+				'Ergebnis',
+				challenge.aJ,
+				$author$project$Model$Result(challenge)),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('input-group-append')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$type_('button'),
+								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Attributes$class('btn-success'),
+								$elm$html$Html$Attributes$name('next'),
+								$elm$html$Html$Events$onClick(
+								$author$project$Model$Solved(challenge))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Abgeben')
+							]))
+					]))
+			]));
+};
+var $author$project$Model$FaktorA = F2(
+	function (a, b) {
+		return {$: 6, a: a, b: b};
+	});
+var $author$project$Model$FaktorB = F2(
+	function (a, b) {
+		return {$: 7, a: a, b: b};
+	});
+var $author$project$View$showReverseChallenge = function (challenge) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('input-group'),
+				$elm$html$Html$Attributes$class('input-group-sm'),
+				$elm$html$Html$Attributes$class('mb-3')
+			]),
+		_List_fromArray(
+			[
+				A4(
+				$author$project$View$numberInput,
+				'faktorA',
+				'FaktorA',
+				challenge.aw,
+				$author$project$Model$FaktorA(challenge)),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('input-group-append')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('input-group-text')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(' x ')
+							]))
+					])),
+				A4(
+				$author$project$View$numberInput,
+				'faktorB',
+				'faktorB',
+				challenge.ax,
+				$author$project$Model$FaktorB(challenge)),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('input-group-append')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('input-group-text')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								' = ' + $author$project$View$maybeIntToString(challenge.aJ))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('input-group-append')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$type_('button'),
+								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Attributes$class('btn-success'),
+								$elm$html$Html$Attributes$name('next'),
+								$elm$html$Html$Events$onClick(
+								$author$project$Model$Solved(challenge))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Abgeben')
+							]))
+					]))
+			]));
+};
+var $author$project$View$showCurrentChallenge = F3(
+	function (challenge, remainingTime, reverse) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -6932,87 +7145,16 @@ var $author$project$Main$showCurrentChallenge = F2(
 							$elm$html$Html$text(
 							'Noch ' + ($elm$core$String$fromInt(remainingTime) + ' Sekunden'))
 						])),
-					A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('input-group'),
-							$elm$html$Html$Attributes$class('input-group-sm'),
-							$elm$html$Html$Attributes$class('mb-3')
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$elm$html$Html$div,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$class('input-group-prepend')
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$elm$html$Html$span,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$class('input-group-text')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text(
-											$author$project$Main$maybeIntToString(challenge.J) + (' x ' + ($author$project$Main$maybeIntToString(challenge.K) + ' = ')))
-										]))
-								])),
-							A2(
-							$elm$html$Html$input,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$type_('number'),
-									$elm$html$Html$Attributes$class('form-control'),
-									$elm$html$Html$Attributes$min('2'),
-									$elm$html$Html$Attributes$max('900'),
-									$elm$html$Html$Attributes$size(3),
-									$elm$html$Html$Attributes$name('result'),
-									A2($elm$html$Html$Attributes$attribute, 'aria-label', 'Ergebnis'),
-									$elm$html$Html$Attributes$value(
-									$author$project$Main$maybeIntToString(challenge.M)),
-									$elm$html$Html$Events$onInput(
-									$author$project$Main$Result(challenge))
-								]),
-							_List_Nil),
-							A2(
-							$elm$html$Html$div,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$class('input-group-append')
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$elm$html$Html$button,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$type_('button'),
-											$elm$html$Html$Attributes$class('btn'),
-											$elm$html$Html$Attributes$class('btn-success'),
-											$elm$html$Html$Attributes$name('next'),
-											$elm$html$Html$Events$onClick(
-											$author$project$Main$Solved(challenge))
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Abgeben')
-										]))
-								]))
-						]))
+					reverse ? $author$project$View$showReverseChallenge(challenge) : $author$project$View$showNormalChallenge(challenge)
 				]));
 	});
-var $author$project$Main$showMaybeChallenge = function (model) {
-	var _v0 = model.t;
+var $author$project$View$showMaybeChallenge = function (model) {
+	var _v0 = model.s;
 	if (_v0.$ === 1) {
 		return $elm$html$Html$text('');
 	} else {
-		var c = _v0.a;
-		return A2($author$project$Main$showCurrentChallenge, c, model.E);
+		var challenge = _v0.a;
+		return A3($author$project$View$showCurrentChallenge, challenge, model.G, model.a.aL);
 	}
 };
 var $elm$core$List$isEmpty = function (xs) {
@@ -7022,8 +7164,8 @@ var $elm$core$List$isEmpty = function (xs) {
 		return false;
 	}
 };
-var $author$project$Main$calcResult = function (challenge) {
-	var _v0 = _Utils_Tuple2(challenge.J, challenge.K);
+var $author$project$View$calcResult = function (challenge) {
+	var _v0 = _Utils_Tuple2(challenge.aw, challenge.ax);
 	if (_v0.a.$ === 1) {
 		if (_v0.b.$ === 1) {
 			var _v1 = _v0.a;
@@ -7044,12 +7186,12 @@ var $author$project$Main$calcResult = function (challenge) {
 		}
 	}
 };
-var $author$project$Main$challengeToString = function (challenge) {
-	return $author$project$Main$maybeIntToString(challenge.J) + (' x ' + ($author$project$Main$maybeIntToString(challenge.K) + (' = ' + $author$project$Main$maybeIntToString(
-		$author$project$Main$calcResult(challenge)))));
+var $author$project$View$challengeToString = function (challenge) {
+	return $author$project$View$maybeIntToString(challenge.aw) + (' x ' + ($author$project$View$maybeIntToString(challenge.ax) + (' = ' + $author$project$View$maybeIntToString(
+		$author$project$View$calcResult(challenge)))));
 };
-var $author$project$Main$showSolvedChallenge = function (challenge) {
-	return $author$project$Main$challengeResultCorrect(challenge) ? A2(
+var $author$project$View$showSolvedChallenge = function (challenge) {
+	return $author$project$Model$challengeResultCorrect(challenge) ? A2(
 		$elm$html$Html$p,
 		_List_fromArray(
 			[
@@ -7060,7 +7202,7 @@ var $author$project$Main$showSolvedChallenge = function (challenge) {
 		_List_fromArray(
 			[
 				$elm$html$Html$text(
-				'Richtig ' + $author$project$Main$challengeToString(challenge))
+				'Richtig ' + $author$project$View$challengeToString(challenge))
 			])) : A2(
 		$elm$html$Html$p,
 		_List_fromArray(
@@ -7072,13 +7214,13 @@ var $author$project$Main$showSolvedChallenge = function (challenge) {
 		_List_fromArray(
 			[
 				$elm$html$Html$text(
-				'Nicht ganz ' + ($author$project$Main$challengeToString(challenge) + (' und nicht ' + $author$project$Main$maybeIntToString(challenge.M))))
+				'Nicht ganz ' + ($author$project$View$challengeToString(challenge) + (' und nicht ' + $author$project$View$maybeIntToString(challenge.aJ))))
 			]));
 };
-var $author$project$Main$showSolvedChallenges = function (challenges) {
-	return A2($elm$core$List$map, $author$project$Main$showSolvedChallenge, challenges);
+var $author$project$View$showSolvedChallenges = function (challenges) {
+	return A2($elm$core$List$map, $author$project$View$showSolvedChallenge, challenges);
 };
-var $author$project$Main$showSuccessRate = function (challenges) {
+var $author$project$View$showSuccessRate = function (challenges) {
 	return A2(
 		$elm$html$Html$p,
 		_List_Nil,
@@ -7086,12 +7228,12 @@ var $author$project$Main$showSuccessRate = function (challenges) {
 			[
 				$elm$html$Html$text(
 				$elm$core$String$fromInt(
-					A2($author$project$Main$count, $author$project$Main$challengeResultCorrect, challenges)) + (' von ' + ($elm$core$String$fromInt(
+					A2($author$project$Model$count, $author$project$Model$challengeResultCorrect, challenges)) + (' von ' + ($elm$core$String$fromInt(
 					$elm$core$List$length(challenges)) + ' Richtig.')))
 			]));
 };
-var $author$project$Main$showResults = function (model) {
-	return $elm$core$List$isEmpty(model.w) ? $elm$html$Html$text('') : A2(
+var $author$project$View$showResults = function (model) {
+	return $elm$core$List$isEmpty(model.H) ? $elm$html$Html$text('') : A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
@@ -7108,11 +7250,11 @@ var $author$project$Main$showResults = function (model) {
 						[
 							$elm$html$Html$text('Ergebnisse')
 						])),
-					$author$project$Main$showSuccessRate(model.w)
+					$author$project$View$showSuccessRate(model.H)
 				]),
-			$author$project$Main$showSolvedChallenges(model.w)));
+			$author$project$View$showSolvedChallenges(model.H)));
 };
-var $author$project$Main$view = function (model) {
+var $author$project$View$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -7128,14 +7270,14 @@ var $author$project$Main$view = function (model) {
 					[
 						$elm$html$Html$text('1x1-Trainer')
 					])),
-				$author$project$Main$showConfiguration(model),
-				$author$project$Main$showControl(model),
-				$author$project$Main$showMaybeChallenge(model),
-				$author$project$Main$showResults(model)
+				$author$project$View$showConfiguration(model),
+				$author$project$View$showControl(model),
+				$author$project$View$showMaybeChallenge(model),
+				$author$project$View$showResults(model)
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{aI: $author$project$Main$init, aO: $author$project$Main$subscriptions, aQ: $author$project$Main$update, aR: $author$project$Main$view});
+	{aC: $author$project$Main$init, aN: $author$project$Main$subscriptions, aQ: $author$project$Main$update, aR: $author$project$View$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$oneOf(
 		_List_fromArray(
